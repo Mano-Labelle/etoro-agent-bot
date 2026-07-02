@@ -1,0 +1,31 @@
+# Configuration du bot — tous les garde-fous déterministes vivent ici.
+# Le cerveau (LLM) propose, risk_gate.py dispose.
+
+model: "claude-sonnet-5"          # modèle Anthropic pour le cerveau
+max_web_searches: 6               # recherches web max par cycle
+web_search_tool_type: "web_search_20250305"  # variante récente: "web_search_20260209"
+
+risk:
+  max_open_positions: 3                  # positions ouvertes simultanées max
+  max_amount_pct_of_book_per_trade: 30   # % de accountTotalValue max par trade
+  min_cash_reserve_pct: 10               # le cash ne descend jamais sous 10% du book
+  global_max_leverage: 20                # plafond global, toutes classes confondues
+  leverage_caps:                         # plafonds ESMA retail par classe d'actif
+    fx_major: 30
+    index_major: 20
+    gold: 20
+    commodity: 10
+    stock: 5
+    crypto: 2
+  default_stop_loss_pct_position: 40     # SL injecté si le cerveau l'omet (% de la position)
+  max_stop_loss_pct_position: 50         # SL jamais au-delà de 50% de la position
+  daily_max_drawdown_pct: 25             # -25% depuis 00:00 UTC → plus d'ouvertures ce jour
+  hard_floor_usd: 3500                   # book < 3500 $ → tout fermer + halte permanente
+  lock_max_age_min: 20                   # verrou anti-chevauchement de cycles
+
+# Notes de cycle:
+# - GitHub Actions lance main.py toutes les 30 minutes (cron).
+# - Un cycle = lecture portefeuille → plancher/disjoncteur → cerveau (recherche
+#   web) → gate déterministe → exécution → logs/trades.jsonl.
+# - DRY_RUN=true (défaut): rien n'est exécuté, tout est loggé.
+# - Reprendre après halte: supprimer state/halt.json (décision manuelle).

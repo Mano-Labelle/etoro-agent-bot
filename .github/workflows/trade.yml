@@ -1,0 +1,52 @@
+name: trade
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # toutes les 30 minutes
+  workflow_dispatch: {}       # lancement manuel possible
+
+concurrency:
+  group: trade
+  cancel-in-progress: false   # ne jamais tuer un cycle en cours
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Persistance de state/ entre les runs. Clé toujours nouvelle → le cache
+      # est réécrit à chaque run; restore-keys récupère le plus récent.
+      # Caveat (voir README): le cache GitHub est "eventually consistent".
+      - name: Restore state
+        uses: actions/cache@v4
+        with:
+          path: state
+          key: trading-state-${{ github.run_id }}
+          restore-keys: |
+            trading-state-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run one trading cycle
+        env:
+          ETORO_PUBLIC_KEY: ${{ secrets.ETORO_PUBLIC_KEY }}
+          ETORO_PRIVATE_KEY: ${{ secrets.ETORO_PRIVATE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
+        run: python main.py
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-${{ github.run_id }}
+          path: logs/
+          retention-days: 7
+          if-no-files-found: ignore
