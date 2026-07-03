@@ -23,6 +23,19 @@ la direction, taille inverse à la volatilité + demi-Kelly, filtre de régime
 anti-crash (pas de shorts pendant un rebond), anti-martingale strict. Les règles
 techniques naïves (croisements de moyennes mobiles) sont explicitement écartées.
 
+## Ancrage sur données réelles (`marketdata.py`)
+
+Le momentum et la volatilité ne sont pas *lus dans des articles* (approximatif,
+hallucinable) mais **calculés sur de vraies séries de prix** (Yahoo Finance, EOD,
+sans clé). Chaque cycle, pour une **watchlist** couvrant toutes les classes
+(indices, FX, or/argent, crypto, actions liquides — éditable en tête de
+`marketdata.py`), le bot calcule : momentum 1 sem/1 mois/3 mois, volatilité
+journalière, drawdown depuis le plus-haut, écart à la MM20. Cette table est
+injectée dans le contexte du cerveau, qui l'utilise comme **vérité** pour la
+DIRECTION (signe du momentum) et la TAILLE (inverse de la volatilité) ; la
+recherche web sert alors uniquement au **pourquoi** (catalyseur). Fetch
+best-effort (jamais bloquant) et mis en cache une fois par jour UTC dans `state/`.
+
 ## Boucle de self-learning
 
 - **Mémoire courte** (chaque cycle) : le cerveau reçoit ses derniers trades

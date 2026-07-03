@@ -16,6 +16,7 @@ import traceback
 import yaml
 
 import brain as brain_module
+import marketdata
 import tracker
 from etoro_client import (AmbiguousWriteError, EtoroClient, EtoroError,
                           extract_instrument_id, extract_rate)
@@ -278,6 +279,13 @@ def _cycle(config, gate, dry_run, client=None, brain_factory=None, track_dir=Non
 
     # 3) Cerveau (recherche web + décision). Échec de CONSTRUCTION ou d'appel
     #    → hold, jamais de crash de cycle.
+    # Données de marché CALCULÉES (momentum + volatilité réelles) — best-effort,
+    # jamais bloquant. Ancre la direction/le sizing dans des chiffres, pas du texte.
+    try:
+        market_data = marketdata.market_snapshot(state_dir=os.path.join(HERE, "state"))
+    except Exception:
+        market_data = []
+        log_jsonl({"event": "marketdata_error", "error": traceback.format_exc()[-400:]})
     try:
         b = (brain_factory() if brain_factory is not None
              else brain_module.Brain(config, state_dir=os.path.join(HERE, "state")))
@@ -286,6 +294,8 @@ def _cycle(config, gate, dry_run, client=None, brain_factory=None, track_dir=Non
             "positions": positions,
             "circuit_breaker_active": breaker,
             "halt_history": gate.halt_info(),
+            # Table de momentum/volatilité CALCULÉS par instrument (vérité chiffrée).
+            "market_data": market_data,
             # Mémoire courte (self-learning étage 1): le cerveau voit ses trades
             # récemment fermés (thèse vs résultat) pour apprendre in-context.
             "recent_closed_trades": _recent_closed_trades(track_dir),
