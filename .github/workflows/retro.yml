@@ -27,7 +27,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run weekly retrospective
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python retro.py
       - name: Commit retro & updated tactics
         if: always()

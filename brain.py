@@ -1,9 +1,14 @@
-"""Cerveau de recherche: Claude + outil web_search côté serveur.
+"""Cerveau de recherche: OpenAI (Responses API) + outil `web_search` natif.
 
-Chaque cycle fait de la vraie recherche web (tendance, catalyseurs, momentum)
-puis rend une décision JSON. Le parsing est robuste: en cas d'échec → hold.
-La CONSTRUCTION même du cerveau peut échouer (clé absente, paquet manquant):
-main.py l'enveloppe et dégrade en SAFE_HOLD — jamais de crash de cycle.
+Chaque cycle fait de la VRAIE recherche web (tendance, catalyseurs, momentum)
+puis rend une décision JSON. Parsing robuste: en cas d'échec → hold. La
+CONSTRUCTION du cerveau peut échouer (clé absente, paquet manquant): main.py
+l'enveloppe et dégrade en SAFE_HOLD — jamais de crash de cycle.
+
+Fournisseur: OpenAI. Modèle par défaut gpt-5.4-mini (bon rapport capacité/coût,
+modèle de raisonnement), recherche web via l'outil hébergé `web_search`. La clé
+vient de OPENAI_API_KEY. Coût typique par cycle: quelques centimes (tokens
+négligeables + 0,01 $/recherche web).
 """
 import datetime as dt
 import json
@@ -26,7 +31,6 @@ DECISION_SCHEMA = (
 
 TZ_NY = ZoneInfo("America/New_York")
 TZ_PARIS = ZoneInfo("Europe/Paris")
-
 
 # DOCTRINE — distillée d'une revue de littérature vérifiée (votes adversariaux 3-0).
 # Chaque règle est sourcée ; les garde-fous durs de risk_gate.py restent souverains.
@@ -153,6 +157,7 @@ def load_tactics(state_dir="state"):
     Fichier optionnel `state/doctrine_tactics.md` — mémoire de long terme (étage 2
     de la boucle de self-learning). Absent au démarrage = doctrine de base seule.
     """
+    import os
     try:
         with open(os.path.join(state_dir, "doctrine_tactics.md"), encoding="utf-8") as f:
             return f.read().strip() or None
@@ -163,48 +168,49 @@ def load_tactics(state_dir="state"):
 class Brain:
     def __init__(self, config, state_dir="state"):
         self.config = config or {}
-        self.model = self.config.get("model", "claude-sonnet-5")
-        self.max_web_searches = int(self.config.get("max_web_searches", 6))
-        # Variante plus récente disponible: "web_search_20260209" (filtrage dynamique).
-        self.web_search_tool_type = self.config.get("web_search_tool_type",
-                                                    "web_search_20250305")
+        self.model = self.config.get("model", "gpt-5.4-mini")
+        # Recherche web native via l'outil hébergé `web_search` de la Responses API.
+        self.web_search = bool(self.config.get("web_search_enabled", True))
+        # gpt-5.x sont des modèles de RAISONNEMENT: effort low/medium/high. Mettre
+        # une chaîne vide pour un modèle non-raisonnant (ex. gpt-4.1).
+        self.reasoning_effort = self.config.get("reasoning_effort", "low")
+        self.max_output_tokens = int(self.config.get("max_output_tokens", 8000))
+        self.max_web_searches = int(self.config.get("max_web_searches", 3))
         self.tactics = load_tactics(state_dir)  # self-learning: leçons auto-écrites
         # Import paresseux: l'absence du paquet/de la clé dégrade en SAFE_HOLD
         # via le try/except de main.py au lieu de casser l'import du module.
-        import anthropic
-        # timeout court + 1 seul retry SDK: pire cas ≈ 4 min × tours pause_turn,
-        # confortablement sous le timeout-minutes: 15 du job (défauts SDK: 600 s ×3).
-        self.client = anthropic.Anthropic(timeout=120.0, max_retries=1)
+        import openai
+        # timeout court + 1 seul retry SDK: la Responses API + recherche web peut
+        # boucler côté serveur; on reste bien sous le timeout-minutes: 15 du job.
+        self.client = openai.OpenAI(timeout=120.0, max_retries=1)
 
     def decide(self, portfolio_state):
         """portfolio_state: dict (cash, valeur, positions+pnL, halte, breaker...)."""
         now = dt.datetime.now(dt.timezone.utc)
         user_msg = (
             f"Heure UTC: {now.isoformat(timespec='minutes')} — marchés: {markets_open_note(now)}\n"
+            f"Fais au plus {self.max_web_searches} recherches web CIBLÉES (tendance de "
+            "marché, catalyseurs, momentum, actualité macro) puis décide.\n"
             "État actuel du portefeuille (JSON brut):\n"
             + json.dumps(portfolio_state, ensure_ascii=False, default=str)
-            + "\nFais tes recherches web puis réponds UNIQUEMENT avec le JSON de décision."
+            + "\nRéponds UNIQUEMENT avec le JSON de décision, sans texte autour."
         )
         try:
-            messages = [{"role": "user", "content": user_msg}]
-            for _ in range(4):  # pause_turn: l'outil serveur peut demander à continuer
-                resp = self.client.messages.create(
-                    model=self.model,
-                    max_tokens=8000,
-                    system=build_system_prompt(self.config, tactics=self.tactics),
-                    messages=messages,
-                    tools=[{"type": self.web_search_tool_type, "name": "web_search",
-                            "max_uses": self.max_web_searches}],
-                )
-                if resp.stop_reason != "pause_turn":
-                    break
-                messages = [{"role": "user", "content": user_msg},
-                            {"role": "assistant", "content": resp.content}]
-            text = "".join(b.text for b in resp.content
-                           if getattr(b, "type", "") == "text")
+            kwargs = dict(
+                model=self.model,
+                instructions=build_system_prompt(self.config, tactics=self.tactics),
+                input=user_msg,
+                max_output_tokens=self.max_output_tokens,
+            )
+            if self.web_search:
+                kwargs["tools"] = [{"type": "web_search"}]
+            if self.reasoning_effort:
+                kwargs["reasoning"] = {"effort": self.reasoning_effort}
+            resp = self.client.responses.create(**kwargs)
+            text = resp.output_text or ""
         except Exception as exc:  # panne API, clé absente… → hold, jamais de crash
             hold = json.loads(json.dumps(SAFE_HOLD))
-            hold["market_note"] = f"erreur API cerveau: {exc}"
+            hold["market_note"] = f"erreur API cerveau (OpenAI): {exc}"
             return hold
 
         decision = extract_first_json(text)

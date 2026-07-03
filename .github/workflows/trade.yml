@@ -2,7 +2,8 @@ name: trade
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # toutes les 30 minutes
+    - cron: "0 */2 * * *"    # toutes les 2 heures (horizon momentum = heures→semaines;
+                             # cadence économe: ~1 080 recherches web/mois ≈ 11 $)
   workflow_dispatch: {}       # lancement manuel possible
 
 permissions:
@@ -30,7 +31,7 @@ jobs:
         env:
           ETORO_PUBLIC_KEY: ${{ secrets.ETORO_PUBLIC_KEY }}
           ETORO_PRIVATE_KEY: ${{ secrets.ETORO_PRIVATE_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
         run: python main.py
 

@@ -105,14 +105,20 @@ def run_retro(repo_dir=HERE, now=None, brain_factory=None):
         if brain_factory is not None:
             client = brain_factory()
         else:
-            import anthropic
-            client = anthropic.Anthropic(timeout=180.0, max_retries=1)
-        resp = client.messages.create(
-            model=config.get("model", "claude-sonnet-5"),
-            max_tokens=4000, system=RETRO_SYSTEM,
-            messages=[{"role": "user", "content": user_msg}],
+            import openai
+            client = openai.OpenAI(timeout=180.0, max_retries=1)
+        kwargs = dict(
+            model=config.get("model", "gpt-5.4-mini"),
+            instructions=RETRO_SYSTEM,
+            input=user_msg,
+            max_output_tokens=4000,
         )
-        text = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
+        # La rétro raisonne un peu plus que les cycles de trading (medium).
+        effort = config.get("reasoning_effort", "low")
+        if effort:  # vide = modèle non-raisonnant
+            kwargs["reasoning"] = {"effort": "medium"}
+        resp = client.responses.create(**kwargs)
+        text = resp.output_text or ""
     except Exception as exc:
         _write_retro(repo_dir, now, f"Rétro indisponible (erreur API) : {exc}")
         return "error"

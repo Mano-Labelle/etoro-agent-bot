@@ -1,9 +1,12 @@
 # Configuration du bot — tous les garde-fous déterministes vivent ici.
 # Le cerveau (LLM) propose, risk_gate.py dispose.
 
-model: "claude-sonnet-5"          # modèle Anthropic pour le cerveau
-max_web_searches: 6               # recherches web max par cycle
-web_search_tool_type: "web_search_20250305"  # variante récente: "web_search_20260209"
+model: "gpt-5.4-mini"             # modèle OpenAI pour le cerveau (Responses API)
+                                  # ultra économe: "gpt-5.4-nano"; plus fort: "gpt-5.4"
+web_search_enabled: true          # recherche web native via l'outil hébergé web_search
+reasoning_effort: "low"           # gpt-5.x: low|medium|high ("" pour un modèle non-raisonnant)
+max_output_tokens: 8000           # plafond de sortie par appel
+max_web_searches: 3               # recherches web ciblées par cycle (indice de coût)
 
 risk:
   max_open_positions: 3                  # positions ouvertes simultanées max

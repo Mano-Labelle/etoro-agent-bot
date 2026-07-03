@@ -1,8 +1,9 @@
 # etoro-agent-bot
 
 Bot de trading autonome pour l'**Agent Portfolio eToro** : un sous-compte
-isolé avec un livre **virtuel de 10 000 $**. Toutes les 30 minutes, un cerveau
-(Claude + recherche web en direct) propose des trades CFD agressifs ; un
+isolé avec un livre **virtuel de 10 000 $**. Toutes les 2 heures, un cerveau
+(OpenAI `gpt-5.4-mini` + recherche web native) propose des trades CFD agressifs ;
+un
 garde-fou **déterministe** (que le LLM ne peut pas contourner) plafonne
 levier, montant et stop-loss avant toute exécution.
 
@@ -60,10 +61,10 @@ techniques naïves (croisements de moyennes mobiles) sont explicitement écarté
 1. **Créer un dépôt GitHub privé** et pousser ce dossier
    (`git remote add origin … && git push -u origin main`).
 2. **Ajouter 3 secrets** (Settings → Secrets and variables → Actions →
-   Secrets) : `ETORO_PUBLIC_KEY`, `ETORO_PRIVATE_KEY`, `ANTHROPIC_API_KEY`.
+   Secrets) : `ETORO_PUBLIC_KEY`, `ETORO_PRIVATE_KEY`, `OPENAI_API_KEY`.
 3. **Ajouter la variable** `DRY_RUN` = `true` (Settings → … → Variables).
 4. **Observer les premiers runs à blanc** dans l'onglet Actions (workflow
-   `trade`, toutes les 30 min ou lancement manuel). En dry-run, le bot lit le
+   `trade`, toutes les 2 h ou lancement manuel). En dry-run, le bot lit le
    portefeuille et logge ce qu'il *aurait* fait, sans rien exécuter.
 5. Quand les décisions vous conviennent : **passer `DRY_RUN` à `false`**.
 
@@ -106,7 +107,16 @@ Le suivi de l'expérience est un citoyen de première classe : chaque cycle
 - **`data/retro-*.md`** : les rétrospectives hebdomadaires auto-écrites (on y
   suit l'évolution de la pensée du bot semaine après semaine).
 - **Temps réel** : l'app eToro reste la source de vérité instantanée ; le
-  dashboard se met à jour au rythme des cycles (30 min).
+  dashboard se met à jour au rythme des cycles (2 h).
+
+## 💶 Coût du cerveau
+
+Le cerveau tourne sur **OpenAI `gpt-5.4-mini`** via la Responses API, recherche
+web hébergée incluse. À la cadence de 2 h (12 cycles/jour, ≤3 recherches/cycle) :
+recherche web ~1 080 appels/mois × 0,01 $ ≈ **11 $**, tokens négligeables
+(quelques euros) → **~15 €/mois** au total. `gpt-5.4-nano` (config `model`)
+divise encore les tokens ; espacer la cadence (`cron`) réduit tout
+proportionnellement.
 
 ## Logs et état
 
