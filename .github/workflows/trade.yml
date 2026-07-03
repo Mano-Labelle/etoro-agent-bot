@@ -5,9 +5,12 @@ on:
     - cron: "*/30 * * * *"   # toutes les 30 minutes
   workflow_dispatch: {}       # lancement manuel possible
 
+permissions:
+  contents: write             # le workflow committe data/ + state/ + PERFORMANCE.md
+
 concurrency:
   group: trade
-  cancel-in-progress: false   # ne jamais tuer un cycle en cours
+  cancel-in-progress: false   # ne jamais tuer un cycle en cours (sérialise aussi les push)
 
 jobs:
   trade:
@@ -20,17 +23,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Persistance de state/ entre les runs. Clé toujours nouvelle → le cache
-      # est réécrit à chaque run; restore-keys récupère le plus récent.
-      # Caveat (voir README): le cache GitHub est "eventually consistent".
-      - name: Restore state
-        uses: actions/cache@v4
-        with:
-          path: state
-          key: trading-state-${{ github.run_id }}
-          restore-keys: |
-            trading-state-
-
       - name: Install dependencies
         run: pip install -r requirements.txt
 
@@ -41,6 +33,31 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
         run: python main.py
+
+      # Persistance par COMMIT (remplace actions/cache): garantie lecture-après-
+      # écriture, survit aux runs en échec (if: always()), le disjoncteur garde
+      # sa baseline et la halte est durable. Bonus: le dépôt reste actif, donc
+      # GitHub ne désactive pas le cron après 60 jours d'inactivité.
+      - name: Commit state, data & performance
+        if: always()
+        run: |
+          git config user.name "etoro-agent-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ state/ PERFORMANCE.md
+          if git diff --cached --quiet; then
+            echo "Aucun changement — pas de commit."
+            exit 0
+          fi
+          git commit -m "cycle: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          n=0
+          until git push; do
+            n=$((n+1))
+            if [ "$n" -gt 2 ]; then
+              echo "push impossible après 2 relances" >&2
+              exit 1
+            fi
+            git pull --rebase
+          done
 
       - name: Upload logs
         if: always()

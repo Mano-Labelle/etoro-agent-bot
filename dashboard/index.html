@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expérience eToro — 200€ Bold Bets</title>
+<style>
+  /* Auto-suffisant: zéro requête externe, zéro dépendance. Thème sombre. */
+  :root {
+    --bg: #0d1117; --panel: #161b22; --border: #2d333b;
+    --text: #e6edf3; --muted: #8b949e;
+    --green: #3fb950; --red: #f85149; --amber: #d29922; --blue: #58a6ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 16px; max-width: 1000px; margin: 0 auto;
+  }
+  h1 { font-size: 1.35rem; margin-bottom: 2px; }
+  h1 .accent { color: var(--blue); }
+  .sub { color: var(--muted); font-size: .85rem; margin-bottom: 16px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+           gap: 10px; margin-bottom: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--border);
+          border-radius: 10px; padding: 10px 12px; }
+  .card .label { color: var(--muted); font-size: .72rem; text-transform: uppercase;
+                 letter-spacing: .04em; }
+  .card .value { font-size: 1.25rem; font-weight: 600; margin-top: 2px;
+                 font-variant-numeric: tabular-nums; }
+  .pos { color: var(--green); } .neg { color: var(--red); }
+  .panel { background: var(--panel); border: 1px solid var(--border);
+           border-radius: 10px; padding: 12px; margin-bottom: 16px; }
+  .panel h2 { font-size: .95rem; margin-bottom: 8px; color: var(--muted);
+              font-weight: 600; }
+  #chartwrap { position: relative; width: 100%; height: 300px; }
+  canvas { width: 100%; height: 100%; display: block; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;
+            font-size: .75rem; color: var(--muted); }
+  .legend span::before { content: "— "; font-weight: 700; }
+  .lg-eq::before { color: var(--blue); } .lg-floor::before { color: var(--red); }
+  .lg-target::before { color: var(--green); } .lg-ratchet::before { color: var(--amber); }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--border);
+           vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .scroll { max-height: 420px; overflow-y: auto; }
+  .tablewrap { overflow-x: auto; }
+  .badge { display: inline-block; padding: 0 6px; border-radius: 6px;
+           font-size: .72rem; border: 1px solid var(--border); }
+  .b-executed { color: var(--green); border-color: var(--green); }
+  .b-dry_run { color: var(--blue); border-color: var(--blue); }
+  .b-rejected, .b-hold { color: var(--muted); }
+  .b-error { color: var(--red); border-color: var(--red); }
+  .rationale { color: var(--muted); font-size: .78rem; }
+  .empty { color: var(--muted); font-style: italic; padding: 12px 0; }
+  footer { color: var(--muted); font-size: .75rem; margin: 8px 0 24px; }
+</style>
+</head>
+<body>
+<h1>Expérience eToro — <span class="accent">200 € Bold Bets</span></h1>
+<p class="sub">Book virtuel de 10 000 $ (≈ 200 € réels répliqués à ~2 %) piloté par un
+agent — T0 : 2026-07-02 16:59 UTC. Source temps réel : l'app eToro.</p>
+
+<section class="cards" id="cards"></section>
+
+<section class="panel">
+  <h2>Courbe d'équité</h2>
+  <div id="chartwrap"><canvas id="chart"></canvas></div>
+  <div class="legend">
+    <span class="lg-eq">équité</span>
+    <span class="lg-floor">plancher dur</span>
+    <span class="lg-target">objectifs</span>
+    <span class="lg-ratchet">cliquets</span>
+    <span>▲ ouverture (achat) &nbsp; ▼ ouverture (vente) &nbsp; ✕ fermeture</span>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Métriques</h2>
+  <div class="tablewrap"><table id="metrics"></table></div>
+</section>
+
+<section class="panel">
+  <h2>Journal des trades</h2>
+  <div class="scroll tablewrap"><table id="journal"></table></div>
+</section>
+
+<footer>Données : <code>data/equity.jsonl</code> · <code>data/trades.jsonl</code> ·
+<code>data/targets.json</code> — committées à chaque cycle par le workflow.
+Rapport texte : <code>PERFORMANCE.md</code>.</footer>
+
+<script>
+"use strict";
+const START_EQUITY = 10000, HARD_FLOOR = 3500, SPREAD_COST_RATE = 0.001, EUR_ANCHOR = 200;
+const finite = v => typeof v === "number" && isFinite(v);
+// Échelle mentale demandée : on affiche des EUROS RÉELS. Ancre: book 10 000 $ = 200 €.
+let START = START_EQUITY, EURA = EUR_ANCHOR;
+const toEur = usd => finite(usd) ? usd / START * EURA : null;
+const fmtE = (v, d = 0) => { const e = toEur(v); return e == null ? "—"
+  : e.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d }) + " €"; };
+
+async function fetchText(url) {
+  try {
+    const r = await fetch(url, { cache: "no-store" });
+    return r.ok ? await r.text() : null;   // 404 toléré → null
+  } catch (e) { return null; }
+}
+function parseJsonl(text) {
+  if (!text) return [];
+  const rows = [];
+  for (const line of text.split("\n")) {
+    const s = line.trim();
+    if (!s) continue;
+    try { rows.push(JSON.parse(s)); } catch (e) { /* ligne corrompue → ignorée */ }
+  }
+  return rows;
+}
+
+// Mêmes définitions de métriques que tracker.py.
+function computeMetrics(equityRows, trades, startEquity) {
+  const equities = [startEquity].concat(
+    equityRows.map(r => r && r.equity).filter(finite));
+  const current = equities[equities.length - 1];
+  let peak = equities[0], maxDd = 0;
+  for (const v of equities) {
+    peak = Math.max(peak, v);
+    if (peak > 0) maxDd = Math.max(maxDd, (peak - v) / peak * 100);
+  }
+  const done = trades.filter(t => t && ["executed", "dry_run"].includes(t.status)
+                                  && ["open", "close"].includes(t.type));
+  const closes = done.filter(t => t.type === "close" && finite(t.pnl_usd));
+  const wins = closes.filter(t => t.pnl_usd > 0).map(t => t.pnl_usd);
+  const losses = closes.filter(t => t.pnl_usd <= 0).map(t => t.pnl_usd);
+  const avgWin = wins.length ? wins.reduce((a, b) => a + b, 0) / wins.length : null;
+  const avgLoss = losses.length
+    ? Math.abs(losses.reduce((a, b) => a + b, 0) / losses.length) : null;
+  const costs = done.filter(t => finite(t.amount_usd))
+    .reduce((a, t) => a + Math.abs(t.amount_usd), 0) * SPREAD_COST_RATE;
+  const t0 = Date.parse("2026-07-02T16:59:00Z");
+  return {
+    equity: current,
+    returnPct: (current / startEquity - 1) * 100,
+    maxDrawdownPct: maxDd,
+    daysElapsed: Math.max(0, (Date.now() - t0) / 86400000),
+    nTrades: done.length,
+    nClosesPnl: closes.length,
+    hitRatePct: closes.length ? wins.length / closes.length * 100 : null,
+    avgWinUsd: avgWin, avgLossUsd: avgLoss,
+    winLossRatio: (avgWin && avgLoss) ? avgWin / avgLoss : null,
+    expectancyUsd: closes.length
+      ? closes.reduce((a, t) => a + t.pnl_usd, 0) / closes.length : null,
+    grossCostsUsd: costs,
+  };
+}
+
+const fmt$ = (v, d = 2) => v == null ? "—"
+  : v.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d }) + " $";
+const fmtPct = v => v == null ? "—"
+  : v.toLocaleString("fr-FR", { maximumFractionDigits: 1 }) + " %";
+
+function renderCards(m, lastRow) {
+  const flags = [];
+  if (lastRow && lastRow.halted) flags.push("HALTE");
+  if (lastRow && lastRow.breaker_active) flags.push("disjoncteur");
+  if (lastRow && lastRow.dry_run) flags.push("dry-run");
+  const cls = m.returnPct >= 0 ? "pos" : "neg";
+  document.getElementById("cards").innerHTML = `
+    <div class="card"><div class="label">Valeur (réel)</div>
+      <div class="value">${fmtE(m.equity, 0)}</div>
+      <div class="label" style="text-transform:none">book ${fmt$(m.equity, 0)}</div></div>
+    <div class="card"><div class="label">Rendement</div>
+      <div class="value ${cls}">${m.returnPct >= 0 ? "+" : ""}${fmtPct(m.returnPct)}</div></div>
+    <div class="card"><div class="label">Drawdown max</div>
+      <div class="value">${fmtPct(m.maxDrawdownPct)}</div></div>
+    <div class="card"><div class="label">Jours écoulés</div>
+      <div class="value">${m.daysElapsed.toFixed(1)}</div></div>
+    <div class="card"><div class="label">Trades</div>
+      <div class="value">${m.nTrades}</div></div>
+    <div class="card"><div class="label">État</div>
+      <div class="value" style="font-size:.95rem">${flags.join(" · ") || "actif"}</div></div>`;
+}
+
+function renderMetrics(m) {
+  const rows = [
+    ["Trades (open + close, exécutés ou dry-run)", String(m.nTrades)],
+    ["Fermetures avec PnL connu", String(m.nClosesPnl)],
+    ["Taux de réussite", fmtPct(m.hitRatePct)],
+    ["Gain moyen", fmt$(m.avgWinUsd)],
+    ["Perte moyenne", fmt$(m.avgLossUsd)],
+    ["Ratio gain/perte", m.winLossRatio == null ? "—" : m.winLossRatio.toFixed(2)],
+    ["Espérance par trade", fmt$(m.expectancyUsd)],
+    ["Coûts bruts estimés (proxy spread 0,1 %)", fmt$(m.grossCostsUsd)],
+  ];
+  document.getElementById("metrics").innerHTML =
+    rows.map(([k, v]) => `<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("");
+}
+
+function renderJournal(trades) {
+  const el = document.getElementById("journal");
+  const rows = trades.filter(t => t && t.type && t.type !== "hold").slice().reverse();
+  if (!rows.length) {
+    el.innerHTML = `<tr><td class="empty">Aucun trade pour l'instant —
+      le premier cycle n'a pas encore tourné.</td></tr>`;
+    return;
+  }
+  const esc = s => String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  el.innerHTML = `<tr><th>Date (UTC)</th><th>Type</th><th>Symbole</th><th>Sens</th>
+    <th>Montant</th><th>Levier</th><th>Statut</th><th>PnL</th><th>Motif / rationale</th></tr>`
+    + rows.map(t => {
+      const sens = t.is_buy === true ? "achat" : t.is_buy === false ? "vente" : "—";
+      const pnl = finite(t.pnl_usd)
+        ? `<span class="${t.pnl_usd >= 0 ? "pos" : "neg"}">${fmt$(t.pnl_usd)}</span>` : "—";
+      const why = [t.gate_reason, t.rationale].filter(Boolean).join(" — ");
+      return `<tr>
+        <td class="num">${esc(String(t.ts || "").slice(0, 16).replace("T", " "))}</td>
+        <td>${esc(t.type)}</td><td>${esc(t.symbol || "—")}</td><td>${sens}</td>
+        <td class="num">${finite(t.amount_usd) ? fmt$(t.amount_usd, 0) : "—"}</td>
+        <td class="num">${t.leverage || "—"}</td>
+        <td><span class="badge b-${esc(t.status)}">${esc(t.status)}</span></td>
+        <td class="num">${pnl}</td>
+        <td class="rationale">${esc(why)}</td></tr>`;
+    }).join("");
+}
+
+function drawChart(equityRows, trades, targets) {
+  const canvas = document.getElementById("chart");
+  const wrap = document.getElementById("chartwrap");
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = wrap.clientWidth * dpr;
+  canvas.height = wrap.clientHeight * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  const padL = 56, padR = 10, padT = 10, padB = 26;
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+  const pts = equityRows
+    .map(r => ({ t: Date.parse(r && r.ts), v: r && r.equity }))
+    .filter(p => finite(p.v) && isFinite(p.t));
+  const floor = finite(targets.hard_floor) ? targets.hard_floor : HARD_FLOOR;
+  // targets/ratchets tolèrent l'ancien format (nombres) ET le nouveau (objets).
+  const numOf = (o, k) => finite(o) ? o : (o && finite(o[k]) ? o[k] : null);
+  const tgt = (targets.targets || []).map(o => numOf(o, "usd")).filter(finite);
+  const rat = (targets.ratchets || []).map(o => numOf(o, "floor")).filter(finite);
+
+  if (!pts.length) {
+    ctx.fillStyle = css("--muted");
+    ctx.font = "14px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("Aucune donnée pour l'instant — en attente du premier cycle.", W / 2, H / 2);
+    return;
+  }
+  const vals = pts.map(p => p.v);
+  const start = finite(targets.start_equity) ? targets.start_equity : START_EQUITY;
+  let yMin = Math.min(...vals, floor, start) * 0.97;
+  let yMax = Math.max(...vals, start, ...tgt.filter(v => v < Math.max(...vals) * 1.5),
+                      ...rat) * 1.03;
+  if (yMax - yMin < 1) { yMax += 1; yMin -= 1; }
+  const tMin = pts[0].t, tMax = pts[pts.length - 1].t;
+  const x = t => tMax === tMin ? padL + (W - padL - padR) / 2
+    : padL + (t - tMin) / (tMax - tMin) * (W - padL - padR);
+  const y = v => padT + (1 - (v - yMin) / (yMax - yMin)) * (H - padT - padB);
+
+  // Grille + axe Y.
+  ctx.font = "10px sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "middle";
+  const nTicks = 5;
+  for (let i = 0; i <= nTicks; i++) {
+    const v = yMin + (yMax - yMin) * i / nTicks;
+    ctx.strokeStyle = css("--border"); ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(padL, y(v)); ctx.lineTo(W - padR, y(v)); ctx.stroke();
+    ctx.fillStyle = css("--muted");
+    ctx.fillText(fmtE(v, 0), padL - 6, y(v));   // axe Y en € réels
+  }
+  // Axe X: première / dernière date.
+  ctx.textAlign = "left"; ctx.textBaseline = "top";
+  const dateStr = t => new Date(t).toISOString().slice(0, 10);
+  ctx.fillText(dateStr(tMin), padL, H - padB + 6);
+  ctx.textAlign = "right";
+  ctx.fillText(dateStr(tMax), W - padR, H - padB + 6);
+
+  // Lignes horizontales: plancher / objectifs / cliquets (listes vides tolérées).
+  const hline = (v, color, dash, label) => {
+    if (!finite(v) || v < yMin || v > yMax) return;
+    ctx.strokeStyle = color; ctx.setLineDash(dash); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(padL, y(v)); ctx.lineTo(W - padR, y(v)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = color; ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+    ctx.font = "10px sans-serif";
+    ctx.fillText(label + " " + fmtE(v, 0), padL + 4, y(v) - 2);   // € réels
+  };
+  hline(floor, css("--red"), [6, 4], "plancher");
+  tgt.forEach(v => hline(v, css("--green"), [4, 4], "objectif"));
+  rat.forEach(v => hline(v, css("--amber"), [2, 4], "cliquet"));
+
+  // Courbe d'équité.
+  ctx.strokeStyle = css("--blue"); ctx.lineWidth = 1.8; ctx.beginPath();
+  pts.forEach((p, i) => i ? ctx.lineTo(x(p.t), y(p.v)) : ctx.moveTo(x(p.t), y(p.v)));
+  ctx.stroke();
+
+  // Marqueurs de trades sur la courbe (au point d'équité le plus proche).
+  const nearest = t => {
+    let best = pts[0];
+    for (const p of pts) if (Math.abs(p.t - t) < Math.abs(best.t - t)) best = p;
+    return best;
+  };
+  ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.font = "11px sans-serif";
+  for (const tr of trades) {
+    if (!tr || !["executed", "dry_run"].includes(tr.status)) continue;
+    const tt = Date.parse(tr.ts);
+    if (!isFinite(tt)) continue;
+    const p = nearest(tt);
+    if (tr.type === "open") {
+      ctx.fillStyle = tr.is_buy === false ? css("--red") : css("--green");
+      ctx.fillText(tr.is_buy === false ? "▼" : "▲", x(p.t), y(p.v) - 9);
+    } else if (tr.type === "close") {
+      ctx.fillStyle = css("--muted");
+      ctx.fillText("✕", x(p.t), y(p.v) + 9);
+    }
+  }
+}
+
+async function main() {
+  const [eqText, trText, tgText] = await Promise.all([
+    fetchText("../data/equity.jsonl"),
+    fetchText("../data/trades.jsonl"),
+    fetchText("../data/targets.json"),
+  ]);
+  const equityRows = parseJsonl(eqText);
+  const trades = parseJsonl(trText);
+  let targets = {};
+  try { targets = JSON.parse(tgText) || {}; } catch (e) { targets = {}; }
+  const start = finite(targets.start_equity) ? targets.start_equity : START_EQUITY;
+  START = start;                                                    // ancres € réels
+  EURA = finite(targets.eur_anchor) ? targets.eur_anchor : EUR_ANCHOR;
+
+  const m = computeMetrics(equityRows, trades, start);
+  renderCards(m, equityRows[equityRows.length - 1] || null);
+  renderMetrics(m);
+  renderJournal(trades);
+  drawChart(equityRows, trades, targets);
+  window.addEventListener("resize", () => drawChart(equityRows, trades, targets));
+}
+main();
+</script>
+</body>
+</html>

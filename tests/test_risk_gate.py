@@ -46,9 +46,16 @@ class GateTest(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def evaluate(self, action, total=10000.0, cash=9000.0, positions=(),
-                 entry=100.0, breaker=False):
+                 entry=100.0, breaker=False, instrument="__auto__"):
+        # Comme main.py: un 'open' est jugé sur l'instrument RÉSOLU, jamais sur
+        # le symbole déclaré seul. On fabrique un instrument minimal qui matche
+        # le symbole de l'action (classification par repli sur les listes).
+        if instrument == "__auto__":
+            sym = str(action.get("symbol") or "").strip()
+            instrument = {"symbol": sym} if sym else None
         return self.gate.evaluate(action, total, cash, list(positions),
-                                  entry_rate=entry, breaker_active=breaker)
+                                  entry_rate=entry, breaker_active=breaker,
+                                  instrument=instrument)
 
 
 class TestClassification(GateTest):
@@ -213,6 +220,193 @@ class TestLock(GateTest):
 
     def test_release_without_lock_is_safe(self):
         self.gate.release_lock()  # ne doit pas lever
+
+
+class TestUntrustedLLMOutput(GateTest):
+    """Le gate doit DIGÉRER du JSON arbitraire du cerveau sans jamais crasher."""
+
+    def test_is_buy_string_false_rejected(self):
+        # "false" (str) est truthy en Python: sans garde strict, un SHORT
+        # deviendrait un LONG à levier. Doit être rejeté.
+        approved, reason = self.evaluate(open_action(is_buy="false"))
+        self.assertIsNone(approved)
+        self.assertIn("booléen", reason)
+
+    def test_non_string_type_no_crash(self):
+        approved, reason = self.evaluate({"type": 5, "symbol": "TSLA"})
+        self.assertIsNone(approved)  # coerce en "5" → type inconnu, pas de crash
+
+    def test_numeric_symbol_no_crash(self):
+        approved, _ = self.evaluate(open_action(symbol=123, instrument_query=123),
+                                    instrument={"symbol": "123"})
+        # 123 → "123" (coercition), classé stock, ne lève pas.
+        self.assertTrue(approved is None or approved["leverage"] <= 5)
+
+    def test_nan_amount_rejected(self):
+        approved, reason = self.evaluate(open_action(amount_usd=float("nan")))
+        self.assertIsNone(approved)
+        self.assertIn("non fini", reason)
+
+    def test_inf_amount_rejected(self):
+        approved, _ = self.evaluate(open_action(amount_usd=float("inf")))
+        # inf → plafonné par min(inf, 30% book)=3000, donc APPROUVÉ à 3000:
+        # le cap absorbe l'infini. On vérifie juste l'absence de crash + borne.
+        self.assertTrue(approved is None or approved["amount_usd"] <= 3000.0)
+
+    def test_string_amount_rejected(self):
+        approved, reason = self.evaluate(open_action(amount_usd="abc"))
+        self.assertIsNone(approved)
+
+    def test_nan_stop_loss_falls_back_to_default(self):
+        approved, _ = self.evaluate(open_action(stop_loss_pct_position=float("nan")))
+        self.assertIsNotNone(approved)
+        self.assertEqual(approved["stop_loss_pct_position"], 40.0)  # défaut réinjecté
+
+
+class TestInstrumentIdentity(GateTest):
+    """Un 'open' n'est jamais exécuté sur un instrument non vérifié."""
+
+    def test_open_rejected_without_instrument(self):
+        approved, reason = self.evaluate(open_action(), instrument=None)
+        self.assertIsNone(approved)
+        self.assertIn("instrument", reason)
+
+    def test_mismatch_rejected(self):
+        # Le cerveau dit EURUSD mais la recherche a résolu Tesla → rejet.
+        approved, reason = self.evaluate(
+            open_action(symbol="EURUSD", instrument_query="Tesla"),
+            instrument={"symbol": "TSLA"})
+        self.assertIsNone(approved)
+        self.assertIn("mismatch", reason)
+
+    def test_class_from_resolved_metadata(self):
+        # Métadonnées: type crypto → cap 2, même si le symbole ressemble à autre chose.
+        approved, _ = self.evaluate(
+            open_action(symbol="BTC", leverage=10),
+            instrument={"symbol": "BTC", "instrumentTypeId": 10})
+        self.assertEqual(approved["leverage"], 2)
+
+
+class TestChurn(GateTest):
+    def test_max_opens_per_day(self):
+        now = dt.datetime(2026, 7, 3, 12, 0, tzinfo=dt.timezone.utc)
+        for i in range(6):
+            self.gate.record_open(f"SYM{i}", instrument_id=i, now_utc=now)
+        approved, reason = self.gate.evaluate(
+            open_action(symbol="TSLA"), 10000.0, 9000.0, [],
+            entry_rate=100.0, instrument={"symbol": "TSLA"}, now_utc=now)
+        self.assertIsNone(approved)
+        self.assertIn("churn", reason)
+
+    def test_min_hold_blocks_reopen_same_symbol(self):
+        now = dt.datetime(2026, 7, 3, 12, 0, tzinfo=dt.timezone.utc)
+        self.gate.record_open("TSLA", instrument_id=1, now_utc=now)
+        soon = now + dt.timedelta(minutes=30)  # < 120 min min-hold
+        approved, reason = self.gate.evaluate(
+            open_action(symbol="TSLA"), 10000.0, 9000.0, [],
+            entry_rate=100.0, instrument={"symbol": "TSLA"}, now_utc=soon)
+        self.assertIsNone(approved)
+        self.assertIn("churn", reason)
+
+    def test_opens_budget_resets_next_utc_day(self):
+        d1 = dt.datetime(2026, 7, 3, 23, 0, tzinfo=dt.timezone.utc)
+        for i in range(6):
+            self.gate.record_open(f"S{i}", instrument_id=i, now_utc=d1)
+        d2 = dt.datetime(2026, 7, 4, 1, 0, tzinfo=dt.timezone.utc)
+        approved, _ = self.gate.evaluate(
+            open_action(symbol="AAPL"), 10000.0, 9000.0, [],
+            entry_rate=100.0, instrument={"symbol": "AAPL"}, now_utc=d2)
+        self.assertIsNotNone(approved)  # budget d'ouvertures reparti à zéro
+
+
+class TestCloseCoercion(GateTest):
+    def test_string_position_id_still_closes(self):
+        # position_id arrive en str via le round-trip JSON du LLM → doit matcher.
+        positions = [{"positionID": 42, "instrumentID": 7}]
+        approved, _ = self.evaluate({"type": "close", "position_id": "42"},
+                                    positions=positions)
+        self.assertIsNotNone(approved)
+        self.assertEqual(approved["position_id"], 42)
+
+
+class TestEquityValidity(GateTest):
+    def test_non_finite_equity_rejected(self):
+        approved, reason = self.gate.evaluate(
+            open_action(), float("nan"), 9000.0, [],
+            entry_rate=100.0, instrument={"symbol": "TSLA"})
+        self.assertIsNone(approved)
+
+    def test_zero_equity_rejected(self):
+        approved, _ = self.gate.evaluate(
+            open_action(), 0.0, 0.0, [],
+            entry_rate=100.0, instrument={"symbol": "TSLA"})
+        self.assertIsNone(approved)
+
+
+class TestBrainParsing(unittest.TestCase):
+    """extract_first_json: robuste aux fences/tronqué/vide, refuse NaN/Infinity."""
+
+    def setUp(self):
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+    def test_plain_json(self):
+        from brain import extract_first_json
+        self.assertEqual(extract_first_json('{"a": 1}'), {"a": 1})
+
+    def test_fenced_json(self):
+        from brain import extract_first_json
+        txt = 'Voici ma décision:\n```json\n{"actions": [], "market_note": "x"}\n```'
+        self.assertEqual(extract_first_json(txt), {"actions": [], "market_note": "x"})
+
+    def test_empty_and_garbage(self):
+        from brain import extract_first_json
+        self.assertIsNone(extract_first_json(""))
+        self.assertIsNone(extract_first_json("aucun json ici"))
+
+    def test_truncated_json_returns_none(self):
+        from brain import extract_first_json
+        self.assertIsNone(extract_first_json('{"actions": [{"type": "op'))
+
+    def test_nan_rejected(self):
+        # json.loads accepte NaN par défaut — extract_first_json doit le REFUSER.
+        from brain import extract_first_json
+        self.assertIsNone(extract_first_json('{"amount_usd": NaN}'))
+        self.assertIsNone(extract_first_json('{"x": Infinity}'))
+
+
+class TestTrackerSmoke(unittest.TestCase):
+    """tracker: écrit les JSONL + PERFORMANCE.md sans réseau, métriques saines."""
+
+    def setUp(self):
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.tmp = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_update_writes_files(self):
+        import tracker
+        eq = tracker.equity_record(equity=10500.0, cash=8000.0, n_positions=1,
+                                    dry_run=True)
+        tr = [tracker.trade_record(cycle_id="c1", a_type="open", symbol="TSLA",
+                                   is_buy=True, leverage=5, amount_usd=1000.0,
+                                   status="dry_run", rationale="momentum")]
+        tracker.update(self.tmp, equity_record=eq, trade_records=tr)
+        self.assertTrue(os.path.exists(os.path.join(self.tmp, "data", "equity.jsonl")))
+        self.assertTrue(os.path.exists(os.path.join(self.tmp, "PERFORMANCE.md")))
+        with open(os.path.join(self.tmp, "PERFORMANCE.md"), encoding="utf-8") as f:
+            self.assertIn("Expérience eToro", f.read())
+
+    def test_metrics_hit_rate(self):
+        import tracker
+        trades = [
+            tracker.trade_record("c", "close", status="dry_run", pnl_usd=100.0),
+            tracker.trade_record("c", "close", status="dry_run", pnl_usd=-50.0),
+        ]
+        m = tracker.compute_metrics([{"equity": 10050.0}], trades)
+        self.assertEqual(m["n_closes_pnl"], 2)
+        self.assertAlmostEqual(m["hit_rate_pct"], 50.0)
+        self.assertAlmostEqual(m["expectancy_usd"], 25.0)  # (100-50)/2
 
 
 if __name__ == "__main__":

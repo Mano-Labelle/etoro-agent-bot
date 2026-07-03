@@ -1,9 +1,9 @@
 # Secrets — jamais commités
 .env
 
-# État et logs locaux
-state/
+# Logs locaux (data/ et state/ sont COMMITTÉS: persistance entre runs CI)
 logs/
+state/lock.json
 
 # Python
 __pycache__/

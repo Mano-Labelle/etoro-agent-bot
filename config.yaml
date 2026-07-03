@@ -20,8 +20,10 @@ risk:
   default_stop_loss_pct_position: 40     # SL injecté si le cerveau l'omet (% de la position)
   max_stop_loss_pct_position: 50         # SL jamais au-delà de 50% de la position
   daily_max_drawdown_pct: 25             # -25% depuis 00:00 UTC → plus d'ouvertures ce jour
-  hard_floor_usd: 3500                   # book < 3500 $ → tout fermer + halte permanente
-  lock_max_age_min: 20                   # verrou anti-chevauchement de cycles
+  hard_floor_usd: 3500                   # book < 3500 $ (confirmé 2 cycles) → tout fermer + halte
+  lock_max_age_min: 20                   # verrou anti-chevauchement de cycles (runs locaux)
+  max_opens_per_day: 6                   # anti-churn: budget d'ouvertures par jour UTC
+  min_hold_minutes: 120                  # anti-churn: détention min avant close/réouverture
 
 # Notes de cycle:
 # - GitHub Actions lance main.py toutes les 30 minutes (cron).
@@ -29,3 +31,5 @@ risk:
 #   web) → gate déterministe → exécution → logs/trades.jsonl.
 # - DRY_RUN=true (défaut): rien n'est exécuté, tout est loggé.
 # - Reprendre après halte: supprimer state/halt.json (décision manuelle).
+# - state/ et data/ sont COMMITTÉS par le workflow à chaque cycle (persistance
+#   fiable, remplace actions/cache); logs/ reste local/artefact.

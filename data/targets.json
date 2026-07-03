@@ -1,0 +1,15 @@
+{
+  "start_equity": 10000,
+  "hard_floor": 3500,
+  "eur_anchor": 200,
+  "note": "Book virtuel en $; eur_anchor = mise reelle en EUR. EUR reel = usd / start_equity * eur_anchor. Cibles calibrees par Monte Carlo (20k trajectoires, scenario B/C, 13 semaines).",
+  "targets": [
+    {"usd": 35000, "label": "Objectif x3,5 (P90 realiste)"},
+    {"usd": 50000, "label": "Stretch x5 (queue droite)"}
+  ],
+  "ratchets": [
+    {"at": 15000, "floor": 11000},
+    {"at": 20000, "floor": 13000},
+    {"at": 30000, "floor": 20000}
+  ]
+}
