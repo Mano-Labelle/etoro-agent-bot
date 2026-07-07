@@ -43,8 +43,10 @@ _UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
 
 def fetch_closes(yahoo_symbol, timeout=8):
     """Liste des clôtures journalières (ancien→récent), ou [] en cas d'échec."""
+    # 6 mois de bougies: le momentum 3 mois (mom_3m) a besoin de >63 séances —
+    # avec seulement 3mo il était TOUJOURS null. La fenêtre drawdown reste 3 mois.
     url = ("https://query1.finance.yahoo.com/v8/finance/chart/"
-           + urllib.parse.quote(yahoo_symbol) + "?range=3mo&interval=1d")
+           + urllib.parse.quote(yahoo_symbol) + "?range=6mo&interval=1d")
     try:
         req = urllib.request.Request(url, headers={"User-Agent": _UA})
         with urllib.request.urlopen(req, timeout=timeout) as r:
