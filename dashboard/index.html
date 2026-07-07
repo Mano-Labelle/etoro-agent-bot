@@ -210,11 +210,11 @@ function renderMetrics(m) {
     ["Trades (open + close, exécutés ou dry-run)", String(m.nTrades)],
     ["Fermetures avec PnL connu", String(m.nClosesPnl)],
     ["Taux de réussite", fmtPct(m.hitRatePct)],
-    ["Gain moyen", fmt$(m.avgWinUsd)],
-    ["Perte moyenne", fmt$(m.avgLossUsd)],
+    ["Gain moyen", fmtE(m.avgWinUsd, 2)],
+    ["Perte moyenne", fmtE(m.avgLossUsd, 2)],
     ["Ratio gain/perte", m.winLossRatio == null ? "—" : m.winLossRatio.toFixed(2)],
-    ["Espérance par trade", fmt$(m.expectancyUsd)],
-    ["Coûts bruts estimés (proxy spread 0,1 %)", fmt$(m.grossCostsUsd)],
+    ["Espérance par trade", fmtE(m.expectancyUsd, 2)],
+    ["Coûts bruts estimés (proxy spread 0,1 %)", fmtE(m.grossCostsUsd, 2)],
   ];
   document.getElementById("metrics").innerHTML =
     rows.map(([k, v]) => `<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("");
@@ -276,12 +276,12 @@ function renderJournal(trades) {
     + rows.map(t => {
       const sens = t.is_buy === true ? "achat" : t.is_buy === false ? "vente" : "—";
       const pnl = finite(t.pnl_usd)
-        ? `<span class="${t.pnl_usd >= 0 ? "pos" : "neg"}">${fmt$(t.pnl_usd)}</span>` : "—";
+        ? `<span class="${t.pnl_usd >= 0 ? "pos" : "neg"}">${fmtE(t.pnl_usd, 2)}</span>` : "—";
       const why = [t.gate_reason, t.rationale].filter(Boolean).join(" — ");
       return `<tr>
         <td class="num">${esc(String(t.ts || "").slice(0, 16).replace("T", " "))}</td>
         <td>${esc(t.type)}</td><td>${esc(t.symbol || "—")}</td><td>${sens}</td>
-        <td class="num">${finite(t.amount_usd) ? fmt$(t.amount_usd, 0) : "—"}</td>
+        <td class="num">${finite(t.amount_usd) ? fmtE(t.amount_usd, 0) : "—"}</td>
         <td class="num">${t.leverage || "—"}</td>
         <td><span class="badge b-${esc(t.status)}">${esc(t.status)}</span></td>
         <td class="num">${pnl}</td>
