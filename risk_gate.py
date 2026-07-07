@@ -118,6 +118,11 @@ class RiskGate:
         self.min_cash_reserve_pct = float(r.get("min_cash_reserve_pct", 10))
         self.global_max_leverage = int(r.get("global_max_leverage", 20))
         self.leverage_caps = {**DEFAULT_CAPS, **(r.get("leverage_caps") or {})}
+        # Mode ACTIFS RÉELS SANS CFD (défaut). Posséder la crypto/l'action = pas de
+        # levier possible, pas de portage overnight, impossible de shorter. Ces deux
+        # drapeaux rendent les caps de levier ci-dessus INERTES (levier sortant = 1).
+        self.force_unleveraged = bool(r.get("force_unleveraged", True))
+        self.long_only = bool(r.get("long_only", True))
         self.default_sl = float(r.get("default_stop_loss_pct_position", 40))
         self.max_sl = float(r.get("max_stop_loss_pct_position", 50))
         self.daily_max_dd_pct = float(r.get("daily_max_drawdown_pct", 25))
@@ -371,6 +376,11 @@ class RiskGate:
         except (TypeError, ValueError):
             leverage = 1
         leverage = max(1, min(leverage, cap))
+        # ACTIFS RÉELS : le levier sortant est FORCÉ à 1, quoi que demande le cerveau
+        # et quel que soit le cap de classe (on possède l'actif → aucun CFD). On
+        # ÉCRASE la valeur, on ne se contente pas de la plafonner.
+        if self.force_unleveraged:
+            leverage = 1
 
         try:
             amount = float(action.get("amount_usd") or 0)
@@ -406,6 +416,11 @@ class RiskGate:
         is_buy = action.get("is_buy", True)
         if not isinstance(is_buy, bool):
             return None, f"is_buy non booléen ({is_buy!r}) → rejet"
+        # LONG-ONLY : shorter exigerait un CFD (impossible en actif réel). En marché
+        # baissier on passe en CASH, on ne parie jamais à la baisse. Les 'close'
+        # restent toujours permis (traités par _evaluate_close, jamais ici).
+        if self.long_only and is_buy is not True:
+            return None, "long-only: shorts interdits (nécessiteraient un CFD)"
 
         # Une perte de P% sur la POSITION = un mouvement de prix de P/levier.
         move = sl_pct / 100.0 / leverage

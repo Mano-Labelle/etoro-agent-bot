@@ -17,25 +17,25 @@ import os
 import urllib.parse
 import urllib.request
 
-# Watchlist par défaut, couvrant TOUTES les classes autorisées. Éditable ici.
+# Watchlist par défaut — UNIVERS RÉEL, LONG-ONLY, SANS CFD. Éditable ici.
+# On ne garde que des actifs qu'on peut POSSÉDER en spot sur eToro (crypto + actions) :
+# les indices/FX/matières premières sont RETIRÉS car indisponibles au détail autrement
+# qu'en CFD (levier + financement overnight = piège à frais prouvé par le backtest).
+# Le set est volontairement "ambitieux" : assez volatil pour multiplier SANS levier
+# (crypto majors liquides + actions high-beta / thématiques). Le calcul momentum/vol
+# reste identique : direction = signe du momentum, taille = inverse de la volatilité.
 # (symbole eToro, symbole Yahoo, classe, requête pour la recherche d'instrument eToro)
 WATCHLIST = [
-    ("SPX500",  "^GSPC",    "index",     "S&P 500"),
-    ("NSDQ100", "^NDX",     "index",     "Nasdaq 100"),
-    ("GER40",   "^GDAXI",   "index",     "DAX 40"),
-    ("EURUSD",  "EURUSD=X", "fx",        "EUR/USD"),
-    ("GBPUSD",  "GBPUSD=X", "fx",        "GBP/USD"),
-    ("USDJPY",  "JPY=X",    "fx",        "USD/JPY"),
-    ("GOLD",    "GC=F",     "commodity", "Gold"),
-    ("SILVER",  "SI=F",     "commodity", "Silver"),
-    ("BTC",     "BTC-USD",  "crypto",    "Bitcoin"),
-    ("ETH",     "ETH-USD",  "crypto",    "Ethereum"),
-    ("SOL",     "SOL-USD",  "crypto",    "Solana"),
-    ("AAPL",    "AAPL",     "stock",     "Apple"),
-    ("NVDA",    "NVDA",     "stock",     "Nvidia"),
-    ("MSFT",    "MSFT",     "stock",     "Microsoft"),
-    ("TSLA",    "TSLA",     "stock",     "Tesla"),
-    ("AMZN",    "AMZN",     "stock",     "Amazon"),
+    ("BTC",   "BTC-USD",  "crypto", "Bitcoin"),
+    ("ETH",   "ETH-USD",  "crypto", "Ethereum"),
+    ("SOL",   "SOL-USD",  "crypto", "Solana"),
+    ("XRP",   "XRP-USD",  "crypto", "XRP"),
+    ("DOGE",  "DOGE-USD", "crypto", "Dogecoin"),
+    ("NVDA",  "NVDA",     "stock",  "Nvidia"),
+    ("TSLA",  "TSLA",     "stock",  "Tesla"),
+    ("AMD",   "AMD",      "stock",  "AMD"),
+    ("PLTR",  "PLTR",     "stock",  "Palantir"),
+    ("MSTR",  "MSTR",     "stock",  "MicroStrategy"),
 ]
 
 _UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"

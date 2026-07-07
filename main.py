@@ -158,6 +158,26 @@ def _sweep_close(client, positions, dry_run, event, cycle_id, trade_records):
     return closed
 
 
+def _name_map():
+    """Symbole eToro → nom lisible (ex "Bitcoin"/"Nvidia"), depuis la watchlist réelle."""
+    return {str(sym): query for sym, _yahoo, _cls, query in marketdata.WATCHLIST}
+
+
+def _rationale_map(repo_dir, trade_records=()):
+    """Symbole → rationale du DERNIER 'open' de ce symbole (data/trades.jsonl +
+    trades du cycle courant). Best-effort, jamais bloquant."""
+    out = {}
+    try:
+        rows = tracker._read_jsonl(os.path.join(repo_dir, "data", "trades.jsonl"))
+    except Exception:
+        rows = []
+    for r in list(rows) + list(trade_records or ()):
+        if (isinstance(r, dict) and r.get("type") == "open"
+                and r.get("symbol") and r.get("rationale")):
+            out[str(r.get("symbol"))] = r.get("rationale")  # le dernier écrase
+    return out
+
+
 def _track(track_dir, totals, total_value, cash, positions, halted, breaker,
            dry_run, trade_records):
     """Suivi de l'expérience — un échec ici ne touche JAMAIS au trading."""
@@ -178,6 +198,12 @@ def _track(track_dir, totals, total_value, cash, positions, halted, breaker,
                                  if isinstance(p, dict) and not p.get("pending")]),
                 halted=halted, breaker_active=breaker, dry_run=dry_run)
         tracker.update(track_dir, equity_record=eq, trade_records=trade_records)
+        # Instantané des positions ouvertes pour le dashboard (nom lisible + thèse IA).
+        # Les positions réelles (non 'pending' intra-cycle) uniquement.
+        real_positions = [p for p in positions
+                          if isinstance(p, dict) and not p.get("pending")]
+        tracker.write_positions(track_dir, real_positions, _name_map(),
+                                _rationale_map(track_dir, trade_records))
     except Exception:
         log_jsonl({"event": "tracker_error", "error": traceback.format_exc()[-600:]})
 

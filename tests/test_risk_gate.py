@@ -25,7 +25,16 @@ CONFIG = {"risk": {
     "daily_max_drawdown_pct": 25,
     "hard_floor_usd": 3500,
     "lock_max_age_min": 20,
+    # Défaut du nouveau régime ACTIFS RÉELS: levier forcé à 1, long-only.
+    "force_unleveraged": True,
+    "long_only": True,
 }}
+
+# Config "machinerie": drapeaux du nouveau régime DÉSACTIVÉS, pour prouver que la
+# mécanique de plafonnement du levier et de conversion SL/TP reste INTACTE (elle
+# n'est plus qu'inerte par défaut, pas retirée).
+MACHINERY_CONFIG = {"risk": {**CONFIG["risk"],
+                             "force_unleveraged": False, "long_only": False}}
 
 
 def open_action(**kw):
@@ -71,6 +80,13 @@ class TestClassification(GateTest):
 
 
 class TestLeverageCapping(GateTest):
+    # La MÉCANIQUE de plafonnement du levier reste intacte : on la teste avec le
+    # forçage désactivé (MACHINERY_CONFIG). Par défaut, le levier est forcé à 1
+    # (voir TestForceUnleveraged).
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.gate = RiskGate(MACHINERY_CONFIG, state_dir=self.tmp)
+
     def test_stock_capped_at_5(self):
         approved, _ = self.evaluate(open_action(symbol="TSLA", leverage=20))
         self.assertIsNotNone(approved)
@@ -107,6 +123,13 @@ class TestAmountCapping(GateTest):
 
 
 class TestStopLoss(GateTest):
+    # La conversion SL/TP % position → niveau de prix dépend du levier : on la teste
+    # avec MACHINERY_CONFIG (levier passant + shorts permis). À levier 1 (défaut),
+    # la conversion reste correcte — voir TestForceUnleveraged.test_sl_math_at_leverage_1.
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.gate = RiskGate(MACHINERY_CONFIG, state_dir=self.tmp)
+
     def test_sl_injected_when_missing(self):
         approved, _ = self.evaluate(open_action(stop_loss_pct_position=None))
         self.assertEqual(approved["stop_loss_pct_position"], 40.0)
@@ -281,10 +304,64 @@ class TestInstrumentIdentity(GateTest):
 
     def test_class_from_resolved_metadata(self):
         # Métadonnées: type crypto → cap 2, même si le symbole ressemble à autre chose.
-        approved, _ = self.evaluate(
-            open_action(symbol="BTC", leverage=10),
-            instrument={"symbol": "BTC", "instrumentTypeId": 10})
+        # Testé avec le forçage désactivé pour vérifier la classification (cap 2).
+        gate = RiskGate(MACHINERY_CONFIG, state_dir=self.tmp)
+        approved, _ = gate.evaluate(
+            open_action(symbol="BTC", leverage=10), 10000.0, 9000.0, [],
+            entry_rate=100.0, instrument={"symbol": "BTC", "instrumentTypeId": 10})
         self.assertEqual(approved["leverage"], 2)
+
+
+class TestForceUnleveraged(GateTest):
+    """Régime ACTIFS RÉELS: le levier est FORCÉ à 1 quoi que demande le cerveau."""
+
+    def test_leverage_20_forced_to_1(self):
+        approved, _ = self.evaluate(open_action(symbol="TSLA", leverage=20))
+        self.assertIsNotNone(approved)
+        self.assertEqual(approved["leverage"], 1)  # écrasé, pas seulement plafonné
+
+    def test_crypto_leverage_forced_to_1(self):
+        # Même la crypto (cap 2) sort à 1 en mode force_unleveraged.
+        approved, _ = self.evaluate(open_action(symbol="BTC", leverage=10))
+        self.assertEqual(approved["leverage"], 1)
+
+    def test_sl_math_at_leverage_1(self):
+        # BUY, entrée 100, SL 40% position, levier forcé 1 → mouvement 40/100/1 = 40%.
+        approved, _ = self.evaluate(
+            open_action(is_buy=True, leverage=20, stop_loss_pct_position=40),
+            entry=100.0)
+        self.assertEqual(approved["leverage"], 1)
+        self.assertAlmostEqual(approved["stop_loss_rate"], 60.0, places=6)
+
+
+class TestLongOnly(GateTest):
+    """Régime ACTIFS RÉELS: shorts interdits (CFD), fermetures toujours permises."""
+
+    def test_short_open_rejected(self):
+        approved, reason = self.evaluate(open_action(symbol="BTC", is_buy=False))
+        self.assertIsNone(approved)
+        self.assertIn("long-only", reason)
+        self.assertIn("short", reason.lower())
+
+    def test_long_open_still_allowed(self):
+        approved, _ = self.evaluate(open_action(symbol="BTC", is_buy=True))
+        self.assertIsNotNone(approved)
+        self.assertTrue(approved["is_buy"])
+
+    def test_close_allowed_in_long_only(self):
+        # Un 'close' n'est JAMAIS bloqué par long_only (traité par _evaluate_close).
+        positions = [{"positionID": 7, "instrumentID": 3}]
+        approved, _ = self.evaluate({"type": "close", "position_id": 7},
+                                    positions=positions)
+        self.assertIsNotNone(approved)
+        self.assertEqual(approved["type"], "close")
+
+    def test_is_buy_string_false_still_booleen_reject(self):
+        # "false" (str) est rejeté par le garde strict AVANT long_only ("booléen"),
+        # pas par la règle long-only — l'ordre des vérifications est préservé.
+        approved, reason = self.evaluate(open_action(is_buy="false"))
+        self.assertIsNone(approved)
+        self.assertIn("booléen", reason)
 
 
 class TestChurn(GateTest):

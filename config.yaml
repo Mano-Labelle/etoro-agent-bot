@@ -10,12 +10,17 @@ max_output_tokens: 8000           # plafond de sortie par appel
 max_web_searches: 4               # recherches web ciblées par cycle (indice de coût)
 
 risk:
+  # MODE ACTIFS RÉELS SANS CFD — le backtest a prouvé que le CFD à levier est un piège
+  # à frais (spread + financement overnight ~10%/an). On passe en actifs POSSÉDÉS,
+  # non-leviérés, long-only : perte bornée à la mise, seul coût = spread.
+  force_unleveraged: true                # FORCE le levier à 1 sur toute ouverture (écrase la valeur)
+  long_only: true                        # INTERDIT les shorts (nécessiteraient un CFD) — close toujours permis
   max_open_positions: 3                  # positions ouvertes simultanées max
   max_amount_pct_of_book_per_trade: 30   # % de accountTotalValue max par trade
   min_cash_reserve_pct: 10               # le cash ne descend jamais sous 10% du book
-  global_max_leverage: 20                # plafond global, toutes classes confondues
-  leverage_caps:                         # plafonds ESMA retail par classe d'actif
-    fx_major: 30
+  global_max_leverage: 20                # plafond global (SANS EFFET si force_unleveraged: true)
+  leverage_caps:                         # caps ESMA par classe — GARDÉS POUR MÉMOIRE mais
+    fx_major: 30                         # SANS EFFET tant que force_unleveraged: true (levier=1 forcé)
     index_major: 20
     gold: 20
     commodity: 10

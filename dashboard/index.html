@@ -55,6 +55,24 @@
   .b-error { color: var(--red); border-color: var(--red); }
   .rationale { color: var(--muted); font-size: .78rem; }
   .empty { color: var(--muted); font-style: italic; padding: 12px 0; }
+  /* Positions ouvertes — cartes cohérentes avec le thème sombre. */
+  .poswrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+             gap: 10px; }
+  .poscard { background: var(--bg); border: 1px solid var(--border);
+             border-radius: 10px; padding: 10px 12px; }
+  .poscard .head { display: flex; justify-content: space-between; align-items: baseline;
+                   gap: 8px; margin-bottom: 6px; }
+  .poscard .name { font-weight: 600; font-size: .95rem; }
+  .poscard .sym { color: var(--muted); font-size: .72rem; text-transform: uppercase;
+                  letter-spacing: .04em; }
+  .poscard .pnl { font-weight: 600; font-variant-numeric: tabular-nums; text-align: right;
+                  white-space: nowrap; }
+  .poscard .pnl .pct { font-size: .78rem; font-weight: 500; }
+  .poscard .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--muted);
+                   font-size: .74rem; font-variant-numeric: tabular-nums; margin-bottom: 6px; }
+  .poscard .meta b { color: var(--text); font-weight: 600; }
+  .poscard .thesis { color: var(--muted); font-size: .78rem; line-height: 1.45;
+                     border-top: 1px solid var(--border); padding-top: 6px; }
   footer { color: var(--muted); font-size: .75rem; margin: 8px 0 24px; }
 </style>
 </head>
@@ -64,6 +82,11 @@
 agent — T0 : 2026-07-02 16:59 UTC. Source temps réel : l'app eToro.</p>
 
 <section class="cards" id="cards"></section>
+
+<section class="panel">
+  <h2>Positions ouvertes</h2>
+  <div id="positions"></div>
+</section>
 
 <section class="panel">
   <h2>Courbe d'équité</h2>
@@ -197,6 +220,47 @@ function renderMetrics(m) {
     rows.map(([k, v]) => `<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("");
 }
 
+function renderPositions(positions) {
+  const el = document.getElementById("positions");
+  const esc = s => String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const rows = Array.isArray(positions) ? positions : [];
+  if (!rows.length) {
+    el.innerHTML = `<div class="empty">Aucune position ouverte —
+      le book est intégralement en cash.</div>`;
+    return;
+  }
+  // Prix d'entrée: c'est un NIVEAU DE PRIX de l'actif, pas une valeur du book → brut.
+  const fmtRate = v => finite(v)
+    ? v.toLocaleString("fr-FR", { maximumFractionDigits: v >= 100 ? 2 : 6 }) : "—";
+  const fmtDays = v => !finite(v) ? "—"
+    : (v < 1 ? "< 1 j" : Math.round(v) + " j");
+  el.innerHTML = `<div class="poswrap">` + rows.map(p => {
+    const pnlUsd = finite(p.pnl_usd) ? p.pnl_usd : null;
+    const pnlPct = finite(p.pnl_pct) ? p.pnl_pct : null;
+    const cls = pnlUsd == null ? "" : (pnlUsd >= 0 ? "pos" : "neg");
+    const sign = pnlUsd != null && pnlUsd >= 0 ? "+" : "";
+    const pnlBlock = pnlUsd == null ? `<div class="pnl">—</div>`
+      : `<div class="pnl ${cls}">${sign}${fmtE(pnlUsd, 2)}
+           <div class="pct">${sign}${pnlPct == null ? "" : fmtPct(pnlPct)}</div></div>`;
+    const thesis = p.rationale
+      ? `<div class="thesis">${esc(p.rationale)}</div>` : "";
+    return `<div class="poscard">
+      <div class="head">
+        <div><div class="name">${esc(p.name || p.symbol || "—")}</div>
+          <div class="sym">${esc(p.symbol || "")}</div></div>
+        ${pnlBlock}
+      </div>
+      <div class="meta">
+        <span>Montant <b>${finite(p.amount_usd) ? fmtE(p.amount_usd, 0) : "—"}</b></span>
+        <span>Entrée <b>${fmtRate(p.entry_rate)}</b></span>
+        <span>Détenu <b>${fmtDays(p.days_held)}</b></span>
+      </div>
+      ${thesis}
+    </div>`;
+  }).join("") + `</div>`;
+}
+
 function renderJournal(trades) {
   const el = document.getElementById("journal");
   const rows = trades.filter(t => t && t.type && t.type !== "hold").slice().reverse();
@@ -322,21 +386,25 @@ function drawChart(equityRows, trades, targets) {
 }
 
 async function main() {
-  const [eqText, trText, tgText] = await Promise.all([
+  const [eqText, trText, tgText, posText] = await Promise.all([
     fetchText("../data/equity.jsonl"),
     fetchText("../data/trades.jsonl"),
     fetchText("../data/targets.json"),
+    fetchText("../data/positions.json"),     // 404/vide toléré → aucune position
   ]);
   const equityRows = parseJsonl(eqText);
   const trades = parseJsonl(trText);
   let targets = {};
   try { targets = JSON.parse(tgText) || {}; } catch (e) { targets = {}; }
+  let positions = [];
+  try { positions = JSON.parse(posText) || []; } catch (e) { positions = []; }
   const start = finite(targets.start_equity) ? targets.start_equity : START_EQUITY;
   START = start;                                                    // ancres € réels
   EURA = finite(targets.eur_anchor) ? targets.eur_anchor : EUR_ANCHOR;
 
   const m = computeMetrics(equityRows, trades, start);
   renderCards(m, equityRows[equityRows.length - 1] || null);
+  renderPositions(positions);
   renderMetrics(m);
   renderJournal(trades);
   drawChart(equityRows, trades, targets);

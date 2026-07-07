@@ -51,6 +51,35 @@ def _num(v):
     return f if math.isfinite(f) else None
 
 
+def _parse_iso(s):
+    """Datetime UTC depuis un ISO-8601 OU un epoch (s/ms), ou None. Tolérant."""
+    if s is None:
+        return None
+    if isinstance(s, (int, float)) and not isinstance(s, bool):
+        try:
+            v = float(s)
+            if v > 1e12:          # heuristique: millisecondes
+                v /= 1000.0
+            return dt.datetime.fromtimestamp(v, tz=dt.timezone.utc)
+        except (ValueError, OverflowError, OSError):
+            return None
+    try:
+        txt = str(s).strip().replace("Z", "+00:00")
+        t = dt.datetime.fromisoformat(txt)
+    except (TypeError, ValueError):
+        return None
+    return t if t.tzinfo else t.replace(tzinfo=dt.timezone.utc)
+
+
+def _pos_get(low, *candidates):
+    """Première valeur non-nulle parmi des clés candidates (dict déjà en minuscules)."""
+    for c in candidates:
+        v = low.get(c.lower())
+        if v is not None:
+            return v
+    return None
+
+
 # ---- Construction des enregistrements (schéma centralisé ici) ----
 def equity_record(equity, cash, used_margin=None, pnl_unrealized=None,
                   n_positions=0, halted=False, breaker_active=False, dry_run=True):
@@ -303,3 +332,65 @@ def update(repo_dir, equity_record=None, trade_records=()):
     md = render_performance(equity_rows, trades, targets)
     with open(os.path.join(repo_dir, "PERFORMANCE.md"), "w", encoding="utf-8") as f:
         f.write(md)
+
+
+def write_positions(repo_dir, positions, name_map=None, rationale_map=None, now=None):
+    """Écrit un instantané des POSITIONS OUVERTES dans data/positions.json (ÉCRASÉ).
+
+    Best-effort et jamais bloquant : toute entrée non-dict ou tout champ manquant
+    est toléré. Les montants/PnL restent en $ du book virtuel (le dashboard les
+    convertit en € réels, comme pour la courbe d'équité — cohérence avec l'ancre 200 €).
+
+    - name_map     : symbole eToro (ou instrumentID) → nom lisible (watchlist), ex "Bitcoin".
+    - rationale_map: symbole eToro → thèse du dernier 'open' de ce symbole.
+    Chaque position produit : {symbol, name, amount_usd, entry_rate, pnl_usd, pnl_pct,
+    opened_at, days_held, rationale}.
+    """
+    name_map = name_map or {}
+    rationale_map = rationale_map or {}
+    now = now or dt.datetime.now(dt.timezone.utc)
+    out = []
+    for pos in positions or ():
+        if not isinstance(pos, dict):
+            continue
+        low = {str(k).lower(): v for k, v in pos.items()}
+        symbol = _pos_get(low, "symbol", "symbolfull", "instrumentname", "instrumentdisplayname")
+        iid = _pos_get(low, "instrumentid", "instrument_id")
+        sym_str = str(symbol).strip() if symbol is not None else ""
+        iid_str = str(iid).strip() if iid is not None else ""
+        # Nom lisible : d'abord par symbole, puis par instrumentID, sinon le symbole brut.
+        name = None
+        for key in (sym_str, iid_str):
+            if key and key in name_map:
+                name = name_map[key]
+                break
+        amount = _num(_pos_get(low, "amount", "investedamount", "investamount",
+                               "netinvestment", "value"))
+        entry = _num(_pos_get(low, "openrate", "entryrate", "openprice", "rate", "avgopenrate"))
+        pnl = _num(_pos_get(low, "netprofit", "profit", "unrealizedpnl", "pnl", "totalprofit"))
+        pnl_pct = round(pnl / amount * 100.0, 2) if (pnl is not None and amount) else None
+        opened_at = _pos_get(low, "opendatetime", "opentimestamp", "opendate",
+                             "opendateutc", "created", "createddate")
+        ts = _parse_iso(opened_at)
+        days_held = round(max(0.0, (now - ts).total_seconds() / 86400.0), 2) if ts else None
+        rationale = None
+        for key in (sym_str, iid_str):
+            if key and key in rationale_map:
+                rationale = rationale_map[key]
+                break
+        out.append({
+            "symbol": sym_str or (iid_str or None),
+            "name": name or sym_str or (iid_str or None),
+            "amount_usd": amount,
+            "entry_rate": entry,
+            "pnl_usd": pnl,
+            "pnl_pct": pnl_pct,
+            "opened_at": str(opened_at) if opened_at is not None else None,
+            "days_held": days_held,
+            "rationale": rationale,
+        })
+    data_dir = os.path.join(repo_dir, "data")
+    os.makedirs(data_dir, exist_ok=True)
+    with open(os.path.join(data_dir, "positions.json"), "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, default=str)
+    return out
