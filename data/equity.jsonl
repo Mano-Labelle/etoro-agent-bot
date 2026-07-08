@@ -3,3 +3,4 @@
 {"ts": "2026-07-08T11:39:50+00:00", "equity": 10000.0, "cash": 10000.0, "used_margin": null, "pnl_unrealized": null, "n_positions": 0, "halted": false, "breaker_active": false, "dry_run": false}
 {"ts": "2026-07-08T13:21:06+00:00", "equity": 10000.0, "cash": 10000.0, "used_margin": null, "pnl_unrealized": null, "n_positions": 0, "halted": false, "breaker_active": false, "dry_run": false}
 {"ts": "2026-07-08T15:56:29+00:00", "equity": 10000.0, "cash": 10000.0, "used_margin": null, "pnl_unrealized": null, "n_positions": 0, "halted": false, "breaker_active": false, "dry_run": false}
+{"ts": "2026-07-08T17:17:00+00:00", "equity": 10000.0, "cash": 10000.0, "used_margin": null, "pnl_unrealized": null, "n_positions": 0, "halted": false, "breaker_active": false, "dry_run": false}
