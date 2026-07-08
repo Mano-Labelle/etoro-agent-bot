@@ -5,15 +5,15 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **200.00 €** (+0.00 %) — _book 10,000 $_
 - **Drawdown max** : 0.00 %
-- **Jours écoulés** : 0.8
-- **Dernier point** : —
+- **Jours écoulés** : 5.6
+- **Dernier point** : 2026-07-08T08:18:58+00:00 (dry-run)
 
 ## Courbe d'équité
 
 ```
-(pas encore de données)
+▁
 ```
-_En attente du premier cycle._
+min 10,000 $ — max 10,000 $
 
 ## Métriques
 
