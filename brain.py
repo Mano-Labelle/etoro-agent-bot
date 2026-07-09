@@ -127,6 +127,8 @@ def build_system_prompt(config, tactics=None):
     if tactics:  # amendements tactiques auto-appris (rétro hebdo) — voir retro.py
         prompt += ("\nLEÇONS DE TES RÉTROSPECTIVES (tu les as écrites toi-même en "
                    "analysant tes trades passés — applique-les) :\n" + str(tactics)[:2000] + "\n")
+    prompt += ("\nIMPORTANT: écris `rationale` et `market_note` EN ANGLAIS "
+               "(ils sont affichés sur un dashboard public anglophone).\n")
     prompt += ("\nTu réponds UNIQUEMENT avec un objet JSON valide, sans texte autour, "
                "au format : " + DECISION_SCHEMA)
     return prompt
