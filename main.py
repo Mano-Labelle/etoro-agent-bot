@@ -372,12 +372,18 @@ def _handle_action(client, gate, action, ctx):
 
     if a_type == "open":
         # Résolution AVANT le gate: identité vérifiée par le gate lui-même.
-        query = str(action.get("instrument_query") or symbol or "").strip()
-        if query:  # requête vide → instrument None → rejet par le gate
+        # Symbole D'ABORD (c'est lui que le gate compare), instrument_query
+        # en repli — l'inverse ferait échouer le match sur une requête libre.
+        queries = [q for q in (symbol,
+                               str(action.get("instrument_query") or "").strip())
+                   if q]
+        for query in dict.fromkeys(queries):  # dédoublonné, ordre préservé
             try:
                 instrument = client.search_instrument(query)
             except Exception as exc:
                 log_jsonl({"event": "search_error", "query": query, "error": str(exc)})
+            if instrument is not None:
+                break
         is_buy = action.get("is_buy")
         # Prix vivant du bon côté du carnet (achat → ask, vente → bid).
         entry_rate = extract_rate(instrument, is_buy if isinstance(is_buy, bool) else None)

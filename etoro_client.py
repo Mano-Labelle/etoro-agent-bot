@@ -200,21 +200,58 @@ class EtoroClient:
         return self._request("GET", "/trading/info/real/pnl")
 
     def search_instrument(self, query):
-        """Premier instrument correspondant à la recherche (dict), ou None.
+        """Instrument dont le symbole correspond EXACTEMENT à la requête, ou None.
 
-        Une requête vide est refusée (jamais trader items[0] de « tout »).
+        L'endpoint /market-data/search IGNORE le paramètre générique `query`
+        (il renvoie l'univers paginé par ordre alphabétique, précédé d'un blob
+        de stats marché avec instrumentId=-100000). La recherche fiable est le
+        filtre de champ `internalSymbolFull=<symbole>`. On ne retourne JAMAIS
+        un item dont le symbole ne correspond pas à la requête; repli par nom
+        (`internalInstrumentDisplayName`) si la requête n'est pas un symbole.
         """
         query = str(query or "").strip()
         if not query:
             return None
-        data = self._request("GET", "/market-data/search", params={"query": query})
-        if isinstance(data, list):
-            items = data
-        elif isinstance(data, dict):
-            items = data.get("items") or data.get("instruments") or data.get("results") or []
-        else:
-            items = []
-        return items[0] if items else None
+
+        def _items(params):
+            data = self._request("GET", "/market-data/search", params=params)
+            if isinstance(data, list):
+                return data
+            if isinstance(data, dict):
+                return (data.get("items") or data.get("instruments")
+                        or data.get("results") or [])
+            return []
+
+        def _usable(it):
+            if not isinstance(it, dict):
+                return False
+            iid = extract_instrument_id(it)
+            if iid is None or iid <= 0:
+                return False
+            low = _lower_keys(it)
+            return not (low.get("ishiddenfromclient") is True
+                        or low.get("isdelisted") is True)
+
+        wanted = query.upper()
+        pool = [it for it in _items({"internalSymbolFull": query})
+                if _usable(it) and (extract_symbol(it) or "").upper() == wanted]
+        if not pool:
+            # Repli: la requête est un nom (« Advanced Micro Devices »), pas
+            # un symbole. Le filtre API ne matche que mot à mot → filtre sur
+            # le premier mot, containment du nom complet vérifié localement.
+            # Le gate re-vérifie l'identité symbole ensuite.
+            qlow = query.lower()
+            pool = [it for it in _items(
+                        {"internalInstrumentDisplayName": query.split()[0]})
+                    if _usable(it) and qlow in str(
+                        _lower_keys(it).get("internalinstrumentdisplayname")
+                        or "").lower()]
+        if not pool:
+            return None
+        # À symbole égal (ex. AMD vs AMD.RTH exclu par le match exact, mais
+        # doublons possibles), préférer l'instrument actuellement tradable.
+        pool.sort(key=lambda it: _lower_keys(it).get("iscurrentlytradable") is not True)
+        return pool[0]
 
     # ---- Écriture ----
     def open_position(self, instrument_id, is_buy, leverage, amount_usd,
