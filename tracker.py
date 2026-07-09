@@ -334,7 +334,8 @@ def update(repo_dir, equity_record=None, trade_records=()):
         f.write(md)
 
 
-def write_positions(repo_dir, positions, name_map=None, rationale_map=None, now=None):
+def write_positions(repo_dir, positions, name_map=None, rationale_map=None, now=None,
+                    symbol_map=None):
     """Écrit un instantané des POSITIONS OUVERTES dans data/positions.json (ÉCRASÉ).
 
     Best-effort et jamais bloquant : toute entrée non-dict ou tout champ manquant
@@ -343,11 +344,14 @@ def write_positions(repo_dir, positions, name_map=None, rationale_map=None, now=
 
     - name_map     : symbole eToro (ou instrumentID) → nom lisible (watchlist), ex "Bitcoin".
     - rationale_map: symbole eToro → thèse du dernier 'open' de ce symbole.
+    - symbol_map   : instrumentID (str) → ticker; le payload /pnl d'eToro n'a PAS
+      de champ symbole, seulement instrumentID.
     Chaque position produit : {symbol, name, amount_usd, entry_rate, pnl_usd, pnl_pct,
     opened_at, days_held, rationale}.
     """
     name_map = name_map or {}
     rationale_map = rationale_map or {}
+    symbol_map = symbol_map or {}
     now = now or dt.datetime.now(dt.timezone.utc)
     out = []
     for pos in positions or ():
@@ -358,6 +362,8 @@ def write_positions(repo_dir, positions, name_map=None, rationale_map=None, now=
         iid = _pos_get(low, "instrumentid", "instrument_id")
         sym_str = str(symbol).strip() if symbol is not None else ""
         iid_str = str(iid).strip() if iid is not None else ""
+        if not sym_str and iid_str in symbol_map:
+            sym_str = str(symbol_map[iid_str]).strip()
         # Nom lisible : d'abord par symbole, puis par instrumentID, sinon le symbole brut.
         name = None
         for key in (sym_str, iid_str):
@@ -367,7 +373,11 @@ def write_positions(repo_dir, positions, name_map=None, rationale_map=None, now=
         amount = _num(_pos_get(low, "amount", "investedamount", "investamount",
                                "netinvestment", "value"))
         entry = _num(_pos_get(low, "openrate", "entryrate", "openprice", "rate", "avgopenrate"))
-        pnl = _num(_pos_get(low, "netprofit", "profit", "unrealizedpnl", "pnl", "totalprofit"))
+        pnl_raw = _pos_get(low, "netprofit", "profit", "unrealizedpnl", "pnl", "totalprofit")
+        if isinstance(pnl_raw, dict):  # /pnl imbrique le PnL: {"unrealizedPnL": {"pnL": …}}
+            pnl_low = {str(k).lower(): v for k, v in pnl_raw.items()}
+            pnl_raw = pnl_low.get("pnl", pnl_low.get("pnlassetcurrency"))
+        pnl = _num(pnl_raw)
         pnl_pct = round(pnl / amount * 100.0, 2) if (pnl is not None and amount) else None
         opened_at = _pos_get(low, "opendatetime", "opentimestamp", "opendate",
                              "opendateutc", "created", "createddate")

@@ -163,6 +163,32 @@ def _name_map():
     return {str(sym): query for sym, _yahoo, _cls, query in marketdata.WATCHLIST}
 
 
+_SYMBOLS_FILE = os.path.join(HERE, "state", "instrument_symbols.json")
+
+
+def _symbol_map():
+    """instrumentID (str) → ticker. Le payload /pnl d'eToro n'a PAS de symbole,
+    seulement instrumentID — sans cette table le dashboard afficherait '1111'."""
+    try:
+        with open(_SYMBOLS_FILE, encoding="utf-8") as f:
+            m = json.load(f)
+        return {str(k): str(v) for k, v in m.items()} if isinstance(m, dict) else {}
+    except Exception:
+        return {}
+
+
+def _remember_instrument_symbol(iid, symbol):
+    """Mémorise iid → ticker au moment de l'exécution (best-effort, jamais bloquant)."""
+    try:
+        m = _symbol_map()
+        m[str(int(iid))] = str(symbol)
+        os.makedirs(os.path.dirname(_SYMBOLS_FILE), exist_ok=True)
+        with open(_SYMBOLS_FILE, "w", encoding="utf-8") as f:
+            json.dump(m, f, ensure_ascii=False, sort_keys=True)
+    except Exception:
+        pass
+
+
 def _rationale_map(repo_dir, trade_records=()):
     """Symbole → rationale du DERNIER 'open' de ce symbole (data/trades.jsonl +
     trades du cycle courant). Best-effort, jamais bloquant."""
@@ -203,7 +229,8 @@ def _track(track_dir, totals, total_value, cash, positions, halted, breaker,
         real_positions = [p for p in positions
                           if isinstance(p, dict) and not p.get("pending")]
         tracker.write_positions(track_dir, real_positions, _name_map(),
-                                _rationale_map(track_dir, trade_records))
+                                _rationale_map(track_dir, trade_records),
+                                symbol_map=_symbol_map())
     except Exception:
         log_jsonl({"event": "tracker_error", "error": traceback.format_exc()[-600:]})
 
@@ -417,6 +444,8 @@ def _handle_action(client, gate, action, ctx):
         ctx["cash"] -= approved["amount_usd"]
         # Anti-churn: compte aussi en dry-run (budget réaliste en simulation).
         gate.record_open(approved["symbol"], instrument_id=iid)
+        if iid is not None:  # pour résoudre instrumentID → ticker au tracking
+            _remember_instrument_symbol(iid, approved["symbol"])
         if iid is None:
             error, status = "instrument introuvable (pas d'ID)", "error"
         elif ctx["dry_run"]:
