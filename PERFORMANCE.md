@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **199.96 €** (-0.02 %) — _book 9,998 $_
+- **Valeur actuelle** : **199.97 €** (-0.02 %) — _book 9,998 $_
 - **Drawdown max** : 0.02 %
-- **Jours écoulés** : 6.7
-- **Dernier point** : 2026-07-09T10:29:39+00:00
+- **Jours écoulés** : 6.8
+- **Dernier point** : 2026-07-09T12:24:27+00:00
 
 ## Courbe d'équité
 
 ```
-██████████████▃▁▁
+██████████████▃▁▁▂
 ```
 min 9,998 $ — max 10,000 $
 
@@ -19,7 +19,7 @@ min 9,998 $ — max 10,000 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 1 |
+| Trades (open + close, exécutés ou dry-run) | 2 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,7 @@ min 9,998 $ — max 10,000 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-09T12:24 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. The trade no longer passes the doctrine's momentum filter: 1W mome |
 | 2026-07-09T10:04 | open | TSLA | achat | 900 $ | 1 | executed | — | Opening TSLA only. The momentum filter is valid: mom_1m +0.78% and mom_3m +13.68 |
 | 2026-07-09T09:56 | open | TSLA | achat | — | — | rejected | — | TSLA is one of the only names in the provided state with positive 1m and 3m mome |
 | 2026-07-09T08:58 | open | AMD | achat | — | — | rejected | — | AMD is the best long-only setup right now: mom_1m +10.94% and mom_3m +133.56% cl |
