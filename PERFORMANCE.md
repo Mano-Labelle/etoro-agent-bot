@@ -3,17 +3,17 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **200.00 €** (+0.00 %) — _book 10,000 $_
-- **Drawdown max** : 0.00 %
+- **Valeur actuelle** : **199.97 €** (-0.01 %) — _book 9,999 $_
+- **Drawdown max** : 0.01 %
 - **Jours écoulés** : 6.7
-- **Dernier point** : 2026-07-09T10:04:36+00:00
+- **Dernier point** : 2026-07-09T10:22:58+00:00
 
 ## Courbe d'équité
 
 ```
-▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+██████████████▁
 ```
-min 10,000 $ — max 10,000 $
+min 9,999 $ — max 10,000 $
 
 ## Métriques
 
@@ -32,7 +32,7 @@ min 10,000 $ — max 10,000 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
-| 2026-07-09T10:04 | open | TSLA | achat | 900 $ | 1 | executed | — | Ouverture TSLA seulement. Le filtre momentum est valide: mom_1m +0.78% et mom_3m |
+| 2026-07-09T10:04 | open | TSLA | achat | 900 $ | 1 | executed | — | Opening TSLA only. The momentum filter is valid: mom_1m +0.78% and mom_3m +13.68 |
 | 2026-07-09T09:56 | open | TSLA | achat | — | — | rejected | — | TSLA is one of the only names in the provided state with positive 1m and 3m mome |
 | 2026-07-09T08:58 | open | AMD | achat | — | — | rejected | — | AMD is the best long-only setup right now: mom_1m +10.94% and mom_3m +133.56% cl |
 | 2026-07-09T01:24 | open | AMD | achat | — | — | rejected | — | Long only, leverage 1. AMD is the cleanest momentum/catalyst match in the watchl |
