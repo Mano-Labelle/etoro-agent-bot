@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **199.99 €** (-0.01 %) — _book 9,999 $_
+- **Valeur actuelle** : **199.98 €** (-0.01 %) — _book 9,999 $_
 - **Drawdown max** : 0.03 %
-- **Jours écoulés** : 7.2
-- **Dernier point** : 2026-07-09T21:09:22+00:00
+- **Jours écoulés** : 7.3
+- **Dernier point** : 2026-07-09T23:00:33+00:00
 
 ## Courbe d'équité
 
 ```
-██████████████▄▂▂▃▁▁▆
+██████████████▄▂▂▃▁▁▆▅
 ```
 min 9,997 $ — max 10,000 $
 
@@ -19,19 +19,20 @@ min 9,997 $ — max 10,000 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 3 |
+| Trades (open + close, exécutés ou dry-run) | 4 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 2.10 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 2.60 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-09T23:00 | open | AMD | achat | 500 $ | 1 | executed | — | Starter long only. AMD is the only candidate that clears the live momentum gate  |
 | 2026-07-09T19:16 | open | AMD | achat | 1200 $ | 1 | executed | — | AMD is the only remaining candidate that cleanly passes the hard momentum gate a |
 | 2026-07-09T12:24 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. The trade no longer passes the doctrine's momentum filter: 1W mome |
 | 2026-07-09T10:04 | open | TSLA | achat | 900 $ | 1 | executed | — | Opening TSLA only. The momentum filter is valid: mom_1m +0.78% and mom_3m +13.68 |
