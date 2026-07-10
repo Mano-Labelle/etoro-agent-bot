@@ -3,35 +3,36 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **200.40 €** (+0.20 %) — _book 10,020 $_
+- **Valeur actuelle** : **200.68 €** (+0.34 %) — _book 10,034 $_
 - **Drawdown max** : 0.22 %
-- **Jours écoulés** : 8.1
-- **Dernier point** : 2026-07-10T19:11:13+00:00
+- **Jours écoulés** : 8.2
+- **Dernier point** : 2026-07-10T20:58:10+00:00
 
 ## Courbe d'équité
 
 ```
-▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▂▃▁▂▆█
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▁▁▅▆█
 ```
-min 9,978 $ — max 10,020 $
+min 9,978 $ — max 10,034 $
 
 ## Métriques
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 4 |
+| Trades (open + close, exécutés ou dry-run) | 5 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 2.60 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 3.00 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-10T20:58 | open | BTC | achat | 400 $ | 1 | executed | — | BTC is the cleanest live long in the watchlist: mom_1m is +0.62% with the lowest |
 | 2026-07-09T23:00 | open | AMD | achat | 500 $ | 1 | executed | — | Starter long only. AMD is the only candidate that clears the live momentum gate  |
 | 2026-07-09T19:16 | open | AMD | achat | 1200 $ | 1 | executed | — | AMD is the only remaining candidate that cleanly passes the hard momentum gate a |
 | 2026-07-09T12:24 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. The trade no longer passes the doctrine's momentum filter: 1W mome |
