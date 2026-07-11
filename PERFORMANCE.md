@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **200.56 €** (+0.28 %) — _book 10,028 $_
 - **Drawdown max** : 0.22 %
-- **Jours écoulés** : 8.7
-- **Dernier point** : 2026-07-11T10:50:17+00:00
+- **Jours écoulés** : 8.8
+- **Dernier point** : 2026-07-11T12:44:15+00:00
 
 ## Courbe d'équité
 
 ```
-▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▁▁▅▆█▇▇▇▇▇▇
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▁▁▅▆█▇▇▇▇▇▇▇
 ```
 min 9,978 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,978 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 6 |
+| Trades (open + close, exécutés ou dry-run) | 7 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 3.00 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 3.60 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-11T12:44 | open | AMD | achat | 600 $ | 1 | executed | — | AMD is the best long-only candidate in the watchlist: it clears the momentum gat |
 | 2026-07-11T01:15 | close | BTC | achat | — | — | executed | — | BTC no longer clears the doctrine’s momentum filter: 1W and 1M are positive, but |
 | 2026-07-10T22:46 | open | SOL | achat | — | — | rejected | — | SOL is the best tactical long on the current watchlist: 1M momentum is +12.7% an |
 | 2026-07-10T20:58 | open | BTC | achat | 400 $ | 1 | executed | — | BTC is the cleanest live long in the watchlist: mom_1m is +0.62% with the lowest |
@@ -41,7 +42,6 @@ min 9,978 $ — max 10,034 $
 | 2026-07-09T10:04 | open | TSLA | achat | 900 $ | 1 | executed | — | Opening TSLA only. The momentum filter is valid: mom_1m +0.78% and mom_3m +13.68 |
 | 2026-07-09T09:56 | open | TSLA | achat | — | — | rejected | — | TSLA is one of the only names in the provided state with positive 1m and 3m mome |
 | 2026-07-09T08:58 | open | AMD | achat | — | — | rejected | — | AMD is the best long-only setup right now: mom_1m +10.94% and mom_3m +133.56% cl |
-| 2026-07-09T01:24 | open | AMD | achat | — | — | rejected | — | Long only, leverage 1. AMD is the cleanest momentum/catalyst match in the watchl |
 
 ## Objectifs (en euros réels)
 
