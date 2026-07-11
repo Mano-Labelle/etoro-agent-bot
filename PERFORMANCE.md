@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **200.64 €** (+0.32 %) — _book 10,032 $_
 - **Drawdown max** : 0.22 %
-- **Jours écoulés** : 8.2
-- **Dernier point** : 2026-07-10T22:46:35+00:00
+- **Jours écoulés** : 8.3
+- **Dernier point** : 2026-07-11T01:15:35+00:00
 
 ## Courbe d'équité
 
 ```
-▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▁▁▅▆█▇
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▁▁▅▆█▇▇
 ```
 min 9,978 $ — max 10,034 $
 
@@ -19,7 +19,7 @@ min 9,978 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 5 |
+| Trades (open + close, exécutés ou dry-run) | 6 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,7 @@ min 9,978 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-11T01:15 | close | BTC | achat | — | — | executed | — | BTC no longer clears the doctrine’s momentum filter: 1W and 1M are positive, but |
 | 2026-07-10T22:46 | open | SOL | achat | — | — | rejected | — | SOL is the best tactical long on the current watchlist: 1M momentum is +12.7% an |
 | 2026-07-10T20:58 | open | BTC | achat | 400 $ | 1 | executed | — | BTC is the cleanest live long in the watchlist: mom_1m is +0.62% with the lowest |
 | 2026-07-09T23:00 | open | AMD | achat | 500 $ | 1 | executed | — | Starter long only. AMD is the only candidate that clears the live momentum gate  |
