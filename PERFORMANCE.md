@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **200.56 €** (+0.28 %) — _book 10,028 $_
 - **Drawdown max** : 0.22 %
-- **Jours écoulés** : 10.0
-- **Dernier point** : 2026-07-12T16:41:28+00:00
+- **Jours écoulés** : 10.1
+- **Dernier point** : 2026-07-12T18:44:17+00:00
 
 ## Courbe d'équité
 
 ```
-▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▁▁▅▆█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▅▅█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
 ```
 min 9,978 $ — max 10,034 $
 
@@ -19,7 +19,7 @@ min 9,978 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 7 |
+| Trades (open + close, exécutés ou dry-run) | 9 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,8 @@ min 9,978 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-12T18:44 | close | TSLA | achat | — | — | executed | — | Flatten this TSLA lot as part of the full exit. The stock still has positive mom |
+| 2026-07-12T18:44 | close | TSLA | achat | — | — | executed | — | Flatten this TSLA lot. The near-term catalyst has already played out: Reuters re |
 | 2026-07-11T12:44 | open | AMD | achat | 600 $ | 1 | executed | — | AMD is the best long-only candidate in the watchlist: it clears the momentum gat |
 | 2026-07-11T01:15 | close | BTC | achat | — | — | executed | — | BTC no longer clears the doctrine’s momentum filter: 1W and 1M are positive, but |
 | 2026-07-10T22:46 | open | SOL | achat | — | — | rejected | — | SOL is the best tactical long on the current watchlist: 1M momentum is +12.7% an |
@@ -40,8 +42,6 @@ min 9,978 $ — max 10,034 $
 | 2026-07-09T19:16 | open | AMD | achat | 1200 $ | 1 | executed | — | AMD is the only remaining candidate that cleanly passes the hard momentum gate a |
 | 2026-07-09T12:24 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. The trade no longer passes the doctrine's momentum filter: 1W mome |
 | 2026-07-09T10:04 | open | TSLA | achat | 900 $ | 1 | executed | — | Opening TSLA only. The momentum filter is valid: mom_1m +0.78% and mom_3m +13.68 |
-| 2026-07-09T09:56 | open | TSLA | achat | — | — | rejected | — | TSLA is one of the only names in the provided state with positive 1m and 3m mome |
-| 2026-07-09T08:58 | open | AMD | achat | — | — | rejected | — | AMD is the best long-only setup right now: mom_1m +10.94% and mom_3m +133.56% cl |
 
 ## Objectifs (en euros réels)
 
