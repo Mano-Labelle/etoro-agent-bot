@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **200.56 €** (+0.28 %) — _book 10,028 $_
 - **Drawdown max** : 0.22 %
-- **Jours écoulés** : 10.1
-- **Dernier point** : 2026-07-12T20:33:41+00:00
+- **Jours écoulés** : 10.2
+- **Dernier point** : 2026-07-12T22:35:27+00:00
 
 ## Courbe d'équité
 
 ```
-▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▁▁▅▆█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▂▁▅▆█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
 ```
 min 9,978 $ — max 10,034 $
 
@@ -19,19 +19,22 @@ min 9,978 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 9 |
+| Trades (open + close, exécutés ou dry-run) | 12 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 3.60 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 4.60 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-12T22:35 | open | AMD | achat | 1000 $ | 1 | executed | — | Open a starter AMD long. Based on the supplied market data, AMD has the cleanest |
+| 2026-07-12T22:35 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the delivery and robotaxi catal |
+| 2026-07-12T22:35 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. The upside catalyst has largely played out: Reuters reporte |
 | 2026-07-12T18:44 | close | TSLA | achat | — | — | executed | — | Flatten this TSLA lot as part of the full exit. The stock still has positive mom |
 | 2026-07-12T18:44 | close | TSLA | achat | — | — | executed | — | Flatten this TSLA lot. The near-term catalyst has already played out: Reuters re |
 | 2026-07-11T12:44 | open | AMD | achat | 600 $ | 1 | executed | — | AMD is the best long-only candidate in the watchlist: it clears the momentum gat |
@@ -39,9 +42,6 @@ min 9,978 $ — max 10,034 $
 | 2026-07-10T22:46 | open | SOL | achat | — | — | rejected | — | SOL is the best tactical long on the current watchlist: 1M momentum is +12.7% an |
 | 2026-07-10T20:58 | open | BTC | achat | 400 $ | 1 | executed | — | BTC is the cleanest live long in the watchlist: mom_1m is +0.62% with the lowest |
 | 2026-07-09T23:00 | open | AMD | achat | 500 $ | 1 | executed | — | Starter long only. AMD is the only candidate that clears the live momentum gate  |
-| 2026-07-09T19:16 | open | AMD | achat | 1200 $ | 1 | executed | — | AMD is the only remaining candidate that cleanly passes the hard momentum gate a |
-| 2026-07-09T12:24 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. The trade no longer passes the doctrine's momentum filter: 1W mome |
-| 2026-07-09T10:04 | open | TSLA | achat | 900 $ | 1 | executed | — | Opening TSLA only. The momentum filter is valid: mom_1m +0.78% and mom_3m +13.68 |
 
 ## Objectifs (en euros réels)
 
