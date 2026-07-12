@@ -1,0 +1,3 @@
+- À SURVEILLER — Long only sur des noms avec momentum aligné sur plusieurs horizons ; si le 1W est négatif ou si le 3M est négatif, rester en cash ou n’utiliser qu’un starter très prudent.
+- À SURVEILLER — Privilégier les catalyseurs datés quand ils renforcent une tendance déjà saine ; si le moteur catalytique est déjà joué, alléger/fermer avant le gap événementiel.
+- À SURVEILLER — Ne pas forcer un trade “par défaut” quand le meilleur dossier du moment est déjà identifié ; mieux vaut attendre un setup propre que recycler du risque sur un actif moyen.
