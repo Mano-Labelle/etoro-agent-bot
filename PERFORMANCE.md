@@ -3,17 +3,17 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **199.20 €** (-0.40 %) — _book 9,960 $_
-- **Drawdown max** : 0.74 %
-- **Jours écoulés** : 11.1
-- **Dernier point** : 2026-07-13T19:07:57+00:00
+- **Valeur actuelle** : **199.06 €** (-0.47 %) — _book 9,953 $_
+- **Drawdown max** : 0.81 %
+- **Jours écoulés** : 11.2
+- **Dernier point** : 2026-07-13T20:46:14+00:00
 
 ## Courbe d'équité
 
 ```
-▄▄▄▄▄▄▄▄▄▄▄▄▄▃▃▃▃▄▄▂▁▂▅▆▇█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▁▁▁▁
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▃▃▂▃▆█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▅▂▂▂▁
 ```
-min 9,960 $ — max 10,034 $
+min 9,953 $ — max 10,034 $
 
 ## Métriques
 
@@ -32,6 +32,7 @@ min 9,960 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-13T20:46 | open | AMD | achat | — | — | rejected | — | AMD is the cleanest long-only setup in the watchlist: the state feed shows posit |
 | 2026-07-13T19:07 | open | AMD | achat | 500 $ | 1 | executed | — | Open a small AMD starter. It has the cleanest bullish setup in the feed: strong  |
 | 2026-07-13T19:07 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the recent delivery/robotaxi ca |
 | 2026-07-13T19:07 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. The delivery/robotaxi catalyst is already reflected in the  |
@@ -41,7 +42,6 @@ min 9,960 $ — max 10,034 $
 | 2026-07-12T18:44 | close | TSLA | achat | — | — | executed | — | Flatten this TSLA lot as part of the full exit. The stock still has positive mom |
 | 2026-07-12T18:44 | close | TSLA | achat | — | — | executed | — | Flatten this TSLA lot. The near-term catalyst has already played out: Reuters re |
 | 2026-07-11T12:44 | open | AMD | achat | 600 $ | 1 | executed | — | AMD is the best long-only candidate in the watchlist: it clears the momentum gat |
-| 2026-07-11T01:15 | close | BTC | achat | — | — | executed | — | BTC no longer clears the doctrine’s momentum filter: 1W and 1M are positive, but |
 
 ## Objectifs (en euros réels)
 
