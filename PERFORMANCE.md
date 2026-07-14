@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **199.06 €** (-0.47 %) — _book 9,953 $_
 - **Drawdown max** : 0.81 %
-- **Jours écoulés** : 11.3
-- **Dernier point** : 2026-07-14T01:08:16+00:00
+- **Jours écoulés** : 11.5
+- **Dernier point** : 2026-07-14T04:36:42+00:00
 
 ## Courbe d'équité
 
 ```
-▅▅▅▅▅▅▅▅▅▅▅▅▄▄▅▄▅▅▄▃▃▆▆▇█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▅▂▂▃▁▁▁
+▅▅▅▅▅▅▅▅▅▅▅▄▄▄▄▄▅▄▄▃▃▆█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▅▂▃▂▁▁▁
 ```
 min 9,953 $ — max 10,034 $
 
@@ -19,7 +19,7 @@ min 9,953 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 16 |
+| Trades (open + close, exécutés ou dry-run) | 18 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,8 @@ min 9,953 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-14T04:36 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well. The near-term delivery/robotaxi move is already ref |
+| 2026-07-14T04:36 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. The delivery/robotaxi catalyst is already in the tape, Tesl |
 | 2026-07-13T22:42 | open | AMD | achat | 300 $ | 1 | executed | — | AMD is the cleanest long-only setup in the watchlist: the provided market data s |
 | 2026-07-13T20:46 | open | AMD | achat | — | — | rejected | — | AMD is the cleanest long-only setup in the watchlist: the state feed shows posit |
 | 2026-07-13T19:07 | open | AMD | achat | 500 $ | 1 | executed | — | Open a small AMD starter. It has the cleanest bullish setup in the feed: strong  |
@@ -40,8 +42,6 @@ min 9,953 $ — max 10,034 $
 | 2026-07-12T22:35 | open | AMD | achat | 1000 $ | 1 | executed | — | Open a starter AMD long. Based on the supplied market data, AMD has the cleanest |
 | 2026-07-12T22:35 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the delivery and robotaxi catal |
 | 2026-07-12T22:35 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. The upside catalyst has largely played out: Reuters reporte |
-| 2026-07-12T18:44 | close | TSLA | achat | — | — | executed | — | Flatten this TSLA lot as part of the full exit. The stock still has positive mom |
-| 2026-07-12T18:44 | close | TSLA | achat | — | — | executed | — | Flatten this TSLA lot. The near-term catalyst has already played out: Reuters re |
 
 ## Objectifs (en euros réels)
 
