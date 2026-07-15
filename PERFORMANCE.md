@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **198.25 €** (-0.88 %) — _book 9,912 $_
+- **Valeur actuelle** : **198.28 €** (-0.86 %) — _book 9,914 $_
 - **Drawdown max** : 1.21 %
-- **Jours écoulés** : 12.9
-- **Dernier point** : 2026-07-15T15:15:25+00:00
+- **Jours écoulés** : 13.0
+- **Dernier point** : 2026-07-15T17:01:42+00:00
 
 ## Courbe d'équité
 
 ```
-▅▅▅▅▅▅▅▅▅▅▅▅▅▅▄▃▆▇▇█▇▇▇▇▇▇▇▇▇▇▇▇▅▃▃▃▁▁▁▁▂▃▆▆▆▆▅▇
+▆▆▆▆▆▆▆▆▆▆▆▅▅▆▅▄▆▇█▇▇▇▇▇▇▇▇▇▇▇▇▇▆▄▄▃▃▃▃▃▄▅▇▆▇▆▆▁
 ```
 min 9,912 $ — max 10,034 $
 
@@ -19,19 +19,21 @@ min 9,912 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 21 |
+| Trades (open + close, exécutés ou dry-run) | 23 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 8.90 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 10.10 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-15T17:01 | open | AMD | achat | 1200 $ | 1 | executed | — | Open a starter in AMD. It is the cleanest momentum name in the watchlist (1W 6.2 |
+| 2026-07-15T17:01 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. It no longer meets my momentum filter in the state feed (1W |
 | 2026-07-15T11:18 | open | AMD | achat | 1500 $ | 1 | executed | — | Open a starter long in AMD. The state feed shows clean bullish momentum across a |
 | 2026-07-15T11:18 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. It no longer meets the momentum filter in the state feed (1W -1.67 |
 | 2026-07-14T07:32 | open | NVDA | achat | 2000 $ | 1 | executed | — | NVDA has the cleanest momentum profile in the state feed, with +4.08% 1W, +1.55% |
@@ -40,8 +42,6 @@ min 9,912 $ — max 10,034 $
 | 2026-07-13T22:42 | open | AMD | achat | 300 $ | 1 | executed | — | AMD is the cleanest long-only setup in the watchlist: the provided market data s |
 | 2026-07-13T20:46 | open | AMD | achat | — | — | rejected | — | AMD is the cleanest long-only setup in the watchlist: the state feed shows posit |
 | 2026-07-13T19:07 | open | AMD | achat | 500 $ | 1 | executed | — | Open a small AMD starter. It has the cleanest bullish setup in the feed: strong  |
-| 2026-07-13T19:07 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the recent delivery/robotaxi ca |
-| 2026-07-13T19:07 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. The delivery/robotaxi catalyst is already reflected in the  |
 
 ## Objectifs (en euros réels)
 
