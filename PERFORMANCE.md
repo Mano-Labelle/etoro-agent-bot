@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **200.13 €** (+0.07 %) — _book 10,007 $_
+- **Valeur actuelle** : **200.25 €** (+0.12 %) — _book 10,012 $_
 - **Drawdown max** : 0.90 %
-- **Jours écoulés** : 12.7
-- **Dernier point** : 2026-07-15T09:46:00+00:00
+- **Jours écoulés** : 12.8
+- **Dernier point** : 2026-07-15T11:18:30+00:00
 
 ## Courbe d'équité
 
 ```
-▅▅▅▅▅▅▅▅▅▅▄▅▄▅▅▄▃▆█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▃▂▂▁▁▁▁▁▂▄▅▆▆▆
+▅▅▅▅▅▅▅▅▅▅▅▅▅▅▄▄▄▆█▇▇▇▇▇▇▇▇▇▇▇▇▇▇▅▃▃▂▁▁▁▁▁▃▅▆▆▇▅
 ```
 min 9,944 $ — max 10,034 $
 
@@ -19,19 +19,21 @@ min 9,944 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 19 |
+| Trades (open + close, exécutés ou dry-run) | 21 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 7.40 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 8.90 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-15T11:18 | open | AMD | achat | 1500 $ | 1 | executed | — | Open a starter long in AMD. The state feed shows clean bullish momentum across a |
+| 2026-07-15T11:18 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. It no longer meets the momentum filter in the state feed (1W -1.67 |
 | 2026-07-14T07:32 | open | NVDA | achat | 2000 $ | 1 | executed | — | NVDA has the cleanest momentum profile in the state feed, with +4.08% 1W, +1.55% |
 | 2026-07-14T04:36 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well. The near-term delivery/robotaxi move is already ref |
 | 2026-07-14T04:36 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. The delivery/robotaxi catalyst is already in the tape, Tesl |
@@ -40,8 +42,6 @@ min 9,944 $ — max 10,034 $
 | 2026-07-13T19:07 | open | AMD | achat | 500 $ | 1 | executed | — | Open a small AMD starter. It has the cleanest bullish setup in the feed: strong  |
 | 2026-07-13T19:07 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the recent delivery/robotaxi ca |
 | 2026-07-13T19:07 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. The delivery/robotaxi catalyst is already reflected in the  |
-| 2026-07-12T22:35 | open | AMD | achat | 1000 $ | 1 | executed | — | Open a starter AMD long. Based on the supplied market data, AMD has the cleanest |
-| 2026-07-12T22:35 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the delivery and robotaxi catal |
 
 ## Objectifs (en euros réels)
 
