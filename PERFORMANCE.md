@@ -3,35 +3,38 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **198.05 €** (-0.98 %) — _book 9,902 $_
-- **Drawdown max** : 1.35 %
-- **Jours écoulés** : 13.8
-- **Dernier point** : 2026-07-16T13:10:18+00:00
+- **Valeur actuelle** : **197.07 €** (-1.46 %) — _book 9,854 $_
+- **Drawdown max** : 1.80 %
+- **Jours écoulés** : 13.9
+- **Dernier point** : 2026-07-16T15:23:47+00:00
 
 ## Courbe d'équité
 
 ```
-▆▆▆▆▆▆▆▆▆▆▆▆▆▅▅▇▇█▇▇▇▇▇▇▇▇▇▇▇▆▄▄▃▃▃▃▄▅▆▆▇▆▇▁▂▂▁▁
+▆▆▆▆▆▆▆▆▆▆▆▆▅▅▅▇█▇▇▇▇▇▇▇▇▇▇▇▇▄▅▄▃▃▃▃▄▅▇▇▇▆▁▁▂▂▁▁
 ```
-min 9,899 $ — max 10,034 $
+min 9,854 $ — max 10,034 $
 
 ## Métriques
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 26 |
+| Trades (open + close, exécutés ou dry-run) | 29 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 13.10 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 14.60 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-16T15:23 | open | NVDA | achat | 1500 $ | 1 | executed | — | Open a small NVDA starter. In the state feed, NVDA is the cleanest long-only mom |
+| 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the state feed shows negative 1 |
+| 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. TSLA no longer clears my momentum filter because 1M momentu |
 | 2026-07-16T13:10 | open | NVDA | achat | 1000 $ | 1 | executed | — | NVDA is the cleanest long-only setup in the watchlist: mom_1w/mom_1m/mom_3m are  |
 | 2026-07-16T09:52 | open | NVDA | achat | 2000 $ | 1 | executed | — | Best momentum/catalyst blend in the provided state feed: NVDA shows positive mom |
 | 2026-07-16T07:50 | close | TSLA | achat | — | — | executed | — | Close TSLA. The original delivery/robotaxi catalyst is already in the tape, and  |
@@ -39,9 +42,6 @@ min 9,899 $ — max 10,034 $
 | 2026-07-15T17:01 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. It no longer meets my momentum filter in the state feed (1W |
 | 2026-07-15T11:18 | open | AMD | achat | 1500 $ | 1 | executed | — | Open a starter long in AMD. The state feed shows clean bullish momentum across a |
 | 2026-07-15T11:18 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. It no longer meets the momentum filter in the state feed (1W -1.67 |
-| 2026-07-14T07:32 | open | NVDA | achat | 2000 $ | 1 | executed | — | NVDA has the cleanest momentum profile in the state feed, with +4.08% 1W, +1.55% |
-| 2026-07-14T04:36 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well. The near-term delivery/robotaxi move is already ref |
-| 2026-07-14T04:36 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. The delivery/robotaxi catalyst is already in the tape, Tesl |
 
 ## Objectifs (en euros réels)
 
