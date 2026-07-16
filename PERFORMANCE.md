@@ -3,35 +3,36 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **197.14 €** (-1.43 %) — _book 9,857 $_
-- **Drawdown max** : 1.80 %
+- **Valeur actuelle** : **197.04 €** (-1.48 %) — _book 9,852 $_
+- **Drawdown max** : 1.82 %
 - **Jours écoulés** : 14.2
-- **Dernier point** : 2026-07-16T20:40:52+00:00
+- **Dernier point** : 2026-07-16T22:44:44+00:00
 
 ## Courbe d'équité
 
 ```
-▆▆▆▆▆▆▆▆▆▆▆▆▆▅▇█▇▇▇▇▇▇▇▇▇▇▇▇▅▅▅▄▄▄▄▅▇▇▇▇▇▃▄▃▃▂▁▁
+▆▆▆▆▆▆▆▆▆▆▆▆▆▅▇█▇▇▇▇▇▇▇▇▇▇▇▇▅▅▅▄▄▄▅▆▇▇▇▆▇▃▃▃▃▂▁▁
 ```
-min 9,854 $ — max 10,034 $
+min 9,852 $ — max 10,034 $
 
 ## Métriques
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 29 |
+| Trades (open + close, exécutés ou dry-run) | 30 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 14.60 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 15.50 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-16T22:44 | open | AMD | achat | 900 $ | 1 | executed | — | Starter long on AMD. The state feed shows the best multi-horizon momentum among  |
 | 2026-07-16T15:23 | open | NVDA | achat | 1500 $ | 1 | executed | — | Open a small NVDA starter. In the state feed, NVDA is the cleanest long-only mom |
 | 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the state feed shows negative 1 |
 | 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. TSLA no longer clears my momentum filter because 1M momentu |
@@ -41,7 +42,6 @@ min 9,854 $ — max 10,034 $
 | 2026-07-15T17:01 | open | AMD | achat | 1200 $ | 1 | executed | — | Open a starter in AMD. It is the cleanest momentum name in the watchlist (1W 6.2 |
 | 2026-07-15T17:01 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. It no longer meets my momentum filter in the state feed (1W |
 | 2026-07-15T11:18 | open | AMD | achat | 1500 $ | 1 | executed | — | Open a starter long in AMD. The state feed shows clean bullish momentum across a |
-| 2026-07-15T11:18 | close | TSLA | achat | — | — | executed | — | Flatten TSLA. It no longer meets the momentum filter in the state feed (1W -1.67 |
 
 ## Objectifs (en euros réels)
 
