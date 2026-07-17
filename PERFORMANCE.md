@@ -6,12 +6,12 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **Valeur actuelle** : **196.03 €** (-1.99 %) — _book 9,801 $_
 - **Drawdown max** : 2.32 %
 - **Jours écoulés** : 15.2
-- **Dernier point** : 2026-07-17T20:40:13+00:00
+- **Dernier point** : 2026-07-17T22:36:13+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▇▆▆▆▆▆▆▇█▇▇▇▇▇▇▇▇▇▇▆▆▅▅▅▅▆▇▇▇▇▇▄▄▄▃▂▂▂▁▁▁▁
+▇▇▇▇▇▇▇▆▆▆▆▆▆▇█▇▇▇▇▇▇▇▇▇▇▆▆▅▅▅▅▆▇▇▇▇▄▅▄▄▃▂▂▁▁▁▁▁
 ```
 min 9,801 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,801 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 32 |
+| Trades (open + close, exécutés ou dry-run) | 33 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 15.50 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 15.90 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-17T22:36 | open | ETH | achat | 400 $ | 1 | executed | — | ETH has the cleanest near-term setup in the watchlist: the state feed shows +4.2 |
 | 2026-07-17T04:50 | close | AMD | achat | — | — | executed | — | This long also fails the momentum screen because both 1W and 1M momentum are neg |
 | 2026-07-17T04:50 | close | NVDA | achat | — | — | executed | — | This long no longer clears the book's momentum screen because 1M momentum is neg |
 | 2026-07-16T22:44 | open | AMD | achat | 900 $ | 1 | executed | — | Starter long on AMD. The state feed shows the best multi-horizon momentum among  |
@@ -41,7 +42,6 @@ min 9,801 $ — max 10,034 $
 | 2026-07-16T13:10 | open | NVDA | achat | 1000 $ | 1 | executed | — | NVDA is the cleanest long-only setup in the watchlist: mom_1w/mom_1m/mom_3m are  |
 | 2026-07-16T09:52 | open | NVDA | achat | 2000 $ | 1 | executed | — | Best momentum/catalyst blend in the provided state feed: NVDA shows positive mom |
 | 2026-07-16T07:50 | close | TSLA | achat | — | — | executed | — | Close TSLA. The original delivery/robotaxi catalyst is already in the tape, and  |
-| 2026-07-15T17:01 | open | AMD | achat | 1200 $ | 1 | executed | — | Open a starter in AMD. It is the cleanest momentum name in the watchlist (1W 6.2 |
 
 ## Objectifs (en euros réels)
 
