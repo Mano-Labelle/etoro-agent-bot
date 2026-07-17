@@ -3,23 +3,23 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **196.68 €** (-1.66 %) — _book 9,834 $_
-- **Drawdown max** : 1.99 %
-- **Jours écoulés** : 14.3
-- **Dernier point** : 2026-07-17T01:18:43+00:00
+- **Valeur actuelle** : **196.10 €** (-1.95 %) — _book 9,805 $_
+- **Drawdown max** : 2.28 %
+- **Jours écoulés** : 14.5
+- **Dernier point** : 2026-07-17T04:50:09+00:00
 
 ## Courbe d'équité
 
 ```
-▆▆▆▆▆▆▆▆▆▆▆▆▆▆▇█▇▇▇▇▇▇▇▇▇▇▇▆▅▅▄▄▄▄▅▆▇▇▇▇▃▄▃▃▂▁▁▁
+▆▆▆▆▆▆▆▆▆▆▆▆▆▆▇█▇▇▇▇▇▇▇▇▇▇▇▇▅▅▅▅▅▅▅▇▇▇▇▇▃▄▄▃▃▁▁▁
 ```
-min 9,834 $ — max 10,034 $
+min 9,805 $ — max 10,034 $
 
 ## Métriques
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 30 |
+| Trades (open + close, exécutés ou dry-run) | 32 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,8 @@ min 9,834 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-17T04:50 | close | AMD | achat | — | — | executed | — | This long also fails the momentum screen because both 1W and 1M momentum are neg |
+| 2026-07-17T04:50 | close | NVDA | achat | — | — | executed | — | This long no longer clears the book's momentum screen because 1M momentum is neg |
 | 2026-07-16T22:44 | open | AMD | achat | 900 $ | 1 | executed | — | Starter long on AMD. The state feed shows the best multi-horizon momentum among  |
 | 2026-07-16T15:23 | open | NVDA | achat | 1500 $ | 1 | executed | — | Open a small NVDA starter. In the state feed, NVDA is the cleanest long-only mom |
 | 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the state feed shows negative 1 |
@@ -40,8 +42,6 @@ min 9,834 $ — max 10,034 $
 | 2026-07-16T09:52 | open | NVDA | achat | 2000 $ | 1 | executed | — | Best momentum/catalyst blend in the provided state feed: NVDA shows positive mom |
 | 2026-07-16T07:50 | close | TSLA | achat | — | — | executed | — | Close TSLA. The original delivery/robotaxi catalyst is already in the tape, and  |
 | 2026-07-15T17:01 | open | AMD | achat | 1200 $ | 1 | executed | — | Open a starter in AMD. It is the cleanest momentum name in the watchlist (1W 6.2 |
-| 2026-07-15T17:01 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. It no longer meets my momentum filter in the state feed (1W |
-| 2026-07-15T11:18 | open | AMD | achat | 1500 $ | 1 | executed | — | Open a starter long in AMD. The state feed shows clean bullish momentum across a |
 
 ## Objectifs (en euros réels)
 
