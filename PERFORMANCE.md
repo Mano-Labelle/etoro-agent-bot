@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **195.89 €** (-2.06 %) — _book 9,794 $_
 - **Drawdown max** : 2.39 %
-- **Jours écoulés** : 16.0
-- **Dernier point** : 2026-07-18T16:40:37+00:00
+- **Jours écoulés** : 16.1
+- **Dernier point** : 2026-07-18T18:41:22+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▇▆▆▇▆▆▇█▇▇▇▇▇▇▇▇▇▆▆▅▅▅▅▆▇▇▇▇▄▅▄▄▂▂▂▁▁▁▁▁▁▁
+▇▇▇▇▇▇▆▆▆▆▆▆█▇▇▇▇▇▇▇▇▇▇▆▆▅▅▅▆▆▇▇▇▄▅▄▄▄▂▂▁▁▁▁▁▁▁▁
 ```
 min 9,794 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,794 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 34 |
+| Trades (open + close, exécutés ou dry-run) | 35 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 15.90 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 16.50 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-18T18:41 | open | BTC | achat | 600 $ | 1 | executed | — | BTC is the best available long-only starter, but only at small size: the state f |
 | 2026-07-18T04:35 | close | ETH | achat | — | — | executed | — | ETH is the only live position, but it does not clear the book's strict multi-hor |
 | 2026-07-17T22:36 | open | ETH | achat | 400 $ | 1 | executed | — | ETH has the cleanest near-term setup in the watchlist: the state feed shows +4.2 |
 | 2026-07-17T04:50 | close | AMD | achat | — | — | executed | — | This long also fails the momentum screen because both 1W and 1M momentum are neg |
@@ -41,7 +42,6 @@ min 9,794 $ — max 10,034 $
 | 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the state feed shows negative 1 |
 | 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. TSLA no longer clears my momentum filter because 1M momentu |
 | 2026-07-16T13:10 | open | NVDA | achat | 1000 $ | 1 | executed | — | NVDA is the cleanest long-only setup in the watchlist: mom_1w/mom_1m/mom_3m are  |
-| 2026-07-16T09:52 | open | NVDA | achat | 2000 $ | 1 | executed | — | Best momentum/catalyst blend in the provided state feed: NVDA shows positive mom |
 
 ## Objectifs (en euros réels)
 
