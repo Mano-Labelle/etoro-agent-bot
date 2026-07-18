@@ -3,17 +3,17 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **195.89 €** (-2.06 %) — _book 9,794 $_
-- **Drawdown max** : 2.39 %
-- **Jours écoulés** : 16.1
-- **Dernier point** : 2026-07-18T18:41:22+00:00
+- **Valeur actuelle** : **195.79 €** (-2.10 %) — _book 9,790 $_
+- **Drawdown max** : 2.44 %
+- **Jours écoulés** : 16.2
+- **Dernier point** : 2026-07-18T20:35:03+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▆▆▆▆▆▆█▇▇▇▇▇▇▇▇▇▇▆▆▅▅▅▆▆▇▇▇▄▅▄▄▄▂▂▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇▆▆▆▆▆▆█▇▇▇▇▇▇▇▇▇▇▆▆▅▅▅▆▇▇▇▇▄▄▅▄▂▂▂▁▁▁▁▁▁▁▁
 ```
-min 9,794 $ — max 10,034 $
+min 9,790 $ — max 10,034 $
 
 ## Métriques
 
@@ -32,6 +32,7 @@ min 9,794 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-18T20:35 | close | BTC | vente | — | — | rejected | — | BTC's 1W/1M momentum is positive, but its 3M momentum is still deeply negative ( |
 | 2026-07-18T18:41 | open | BTC | achat | 600 $ | 1 | executed | — | BTC is the best available long-only starter, but only at small size: the state f |
 | 2026-07-18T04:35 | close | ETH | achat | — | — | executed | — | ETH is the only live position, but it does not clear the book's strict multi-hor |
 | 2026-07-17T22:36 | open | ETH | achat | 400 $ | 1 | executed | — | ETH has the cleanest near-term setup in the watchlist: the state feed shows +4.2 |
@@ -41,7 +42,6 @@ min 9,794 $ — max 10,034 $
 | 2026-07-16T15:23 | open | NVDA | achat | 1500 $ | 1 | executed | — | Open a small NVDA starter. In the state feed, NVDA is the cleanest long-only mom |
 | 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the state feed shows negative 1 |
 | 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot. TSLA no longer clears my momentum filter because 1M momentu |
-| 2026-07-16T13:10 | open | NVDA | achat | 1000 $ | 1 | executed | — | NVDA is the cleanest long-only setup in the watchlist: mom_1w/mom_1m/mom_3m are  |
 
 ## Objectifs (en euros réels)
 
