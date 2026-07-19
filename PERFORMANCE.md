@@ -6,12 +6,12 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **Valeur actuelle** : **195.69 €** (-2.15 %) — _book 9,785 $_
 - **Drawdown max** : 2.49 %
 - **Jours écoulés** : 17.2
-- **Dernier point** : 2026-07-19T20:35:24+00:00
+- **Dernier point** : 2026-07-19T22:37:59+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▆▆▇▆▆█▇▇▇▇▇▇▇▇▇▆▆▅▅▅▆▇▇▇▄▅▅▄▂▃▁▁▁▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇▆▆▇▆▇█▇▇▇▇▇▇▇▇▇▆▅▅▅▆▆▇▇▇▄▅▄▄▃▂▁▁▁▁▁▁▁▁▁▁▁▁
 ```
 min 9,785 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,785 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 36 |
+| Trades (open + close, exécutés ou dry-run) | 37 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 16.50 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 18.00 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-19T22:37 | open | ETH | achat | 1500 $ | 1 | executed | — | Open a small ETH starter, not a full-sized swing. In the state feed, ETH has the |
 | 2026-07-18T22:35 | close | BTC | achat | — | — | executed | — | Flatten the residual BTC starter. The state feed still shows positive 1W/1M mome |
 | 2026-07-18T20:35 | close | BTC | vente | — | — | rejected | — | BTC's 1W/1M momentum is positive, but its 3M momentum is still deeply negative ( |
 | 2026-07-18T18:41 | open | BTC | achat | 600 $ | 1 | executed | — | BTC is the best available long-only starter, but only at small size: the state f |
@@ -41,7 +42,6 @@ min 9,785 $ — max 10,034 $
 | 2026-07-17T04:50 | close | NVDA | achat | — | — | executed | — | This long no longer clears the book's momentum screen because 1M momentum is neg |
 | 2026-07-16T22:44 | open | AMD | achat | 900 $ | 1 | executed | — | Starter long on AMD. The state feed shows the best multi-horizon momentum among  |
 | 2026-07-16T15:23 | open | NVDA | achat | 1500 $ | 1 | executed | — | Open a small NVDA starter. In the state feed, NVDA is the cleanest long-only mom |
-| 2026-07-16T15:23 | close | TSLA | achat | — | — | executed | — | Close this TSLA lot as well for the same reason: the state feed shows negative 1 |
 
 ## Objectifs (en euros réels)
 
