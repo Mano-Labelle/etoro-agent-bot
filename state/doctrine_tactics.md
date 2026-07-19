@@ -1,3 +1,6 @@
-- À SURVEILLER — Long only sur des noms avec momentum aligné sur plusieurs horizons ; si le 1W est négatif ou si le 3M est négatif, rester en cash ou n’utiliser qu’un starter très prudent.
-- À SURVEILLER — Privilégier les catalyseurs datés quand ils renforcent une tendance déjà saine ; si le moteur catalytique est déjà joué, alléger/fermer avant le gap événementiel.
-- À SURVEILLER — Ne pas forcer un trade “par défaut” quand le meilleur dossier du moment est déjà identifié ; mieux vaut attendre un setup propre que recycler du risque sur un actif moyen.
+- À APPLIQUER — Long only sur momentum aligné multi-horizon ; si 1W ou 1M est négatif, rester en cash ou n’utiliser qu’un starter très prudent. Si 3M est négatif, exiger une qualité de signal nettement supérieure avant toute entrée.
+- À APPLIQUER — Les catalyseurs datés ne se jouent que s’ils renforcent une tendance déjà saine ; si le moteur catalytique est déjà joué ou si l’échéance d’earnings approche, alléger/fermer avant le gap.
+- À APPLIQUER — Limiter le churn : éviter de rouvrir un même symbole tant que le signal n’a pas changé clairement ; après un close, attendre au moins une séance complète si le setup n’est pas objectivement meilleur.
+- À SURVEILLER — Les semis leaders (NVDA/AMD) restent les meilleurs candidats quand le momentum est propre ; TSLA est surtout un trade d’événement, pas un hold swing par défaut.
+- À SURVEILLER — BTC/ETH ne sont acceptables qu’en starter tactique quand 1W/1M sont positifs ; sans 3M réparé, ce n’est pas encore un lane de base.
+- À APPLIQUER — Ne pas forcer un trade “par défaut” ; cash = position quand aucun setup ne coche clairement tendance + catalyseur + régime favorable.
