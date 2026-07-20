@@ -3,23 +3,23 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **195.69 €** (-2.15 %) — _book 9,785 $_
-- **Drawdown max** : 2.49 %
-- **Jours écoulés** : 17.2
-- **Dernier point** : 2026-07-19T22:37:59+00:00
+- **Valeur actuelle** : **195.53 €** (-2.23 %) — _book 9,776 $_
+- **Drawdown max** : 2.57 %
+- **Jours écoulés** : 17.3
+- **Dernier point** : 2026-07-20T01:18:45+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▆▆▇▆▇█▇▇▇▇▇▇▇▇▇▆▅▅▅▆▆▇▇▇▄▅▄▄▃▂▁▁▁▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇▆▆▇▆▇█▇▇▇▇▇▇▇▇▇▆▅▅▅▆▇▇▇▇▄▄▄▄▃▂▁▁▁▁▁▁▁▁▁▁▁▁
 ```
-min 9,785 $ — max 10,034 $
+min 9,776 $ — max 10,034 $
 
 ## Métriques
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 37 |
+| Trades (open + close, exécutés ou dry-run) | 38 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,7 @@ min 9,785 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-20T01:18 | close | ETH | achat | — | — | executed | — | Close ETH. The state feed still shows weak multi-horizon alignment for a long-on |
 | 2026-07-19T22:37 | open | ETH | achat | 1500 $ | 1 | executed | — | Open a small ETH starter, not a full-sized swing. In the state feed, ETH has the |
 | 2026-07-18T22:35 | close | BTC | achat | — | — | executed | — | Flatten the residual BTC starter. The state feed still shows positive 1W/1M mome |
 | 2026-07-18T20:35 | close | BTC | vente | — | — | rejected | — | BTC's 1W/1M momentum is positive, but its 3M momentum is still deeply negative ( |
@@ -41,7 +42,6 @@ min 9,785 $ — max 10,034 $
 | 2026-07-17T04:50 | close | AMD | achat | — | — | executed | — | This long also fails the momentum screen because both 1W and 1M momentum are neg |
 | 2026-07-17T04:50 | close | NVDA | achat | — | — | executed | — | This long no longer clears the book's momentum screen because 1M momentum is neg |
 | 2026-07-16T22:44 | open | AMD | achat | 900 $ | 1 | executed | — | Starter long on AMD. The state feed shows the best multi-horizon momentum among  |
-| 2026-07-16T15:23 | open | NVDA | achat | 1500 $ | 1 | executed | — | Open a small NVDA starter. In the state feed, NVDA is the cleanest long-only mom |
 
 ## Objectifs (en euros réels)
 
