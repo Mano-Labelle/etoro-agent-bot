@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **195.18 €** (-2.41 %) — _book 9,759 $_
+- **Valeur actuelle** : **195.12 €** (-2.44 %) — _book 9,756 $_
 - **Drawdown max** : 2.77 %
-- **Jours écoulés** : 18.6
-- **Dernier point** : 2026-07-21T08:02:26+00:00
+- **Jours écoulés** : 18.8
+- **Dernier point** : 2026-07-21T11:40:29+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▇▇▆▆█▇▇▇▇▇▇▇▇▆▆▅▅▆▇▇▇▄▅▅▄▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇▇▇▆▆█▇▇▇▇▇▇▇▇▆▆▅▅▆▇▇▇▄▅▄▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁
 ```
 min 9,756 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,756 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 40 |
+| Trades (open + close, exécutés ou dry-run) | 41 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 18.30 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 19.00 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-21T11:40 | open | BTC | achat | 700 $ | 1 | executed | — | BTC is the only asset that clearly passes my short-term momentum screen: 1W is + |
 | 2026-07-21T08:02 | close | BTC | achat | — | — | executed | — | Close BTC and move to cash. The state feed still shows a mixed tape: 1W is +1.21 |
 | 2026-07-21T01:15 | open | BTC | achat | 300 $ | 1 | executed | — | BTC is the best tactical long right now: the state feed shows positive 1W and 1M |
 | 2026-07-20T01:18 | close | ETH | achat | — | — | executed | — | Close ETH. The state feed still shows weak multi-horizon alignment for a long-on |
@@ -41,7 +42,6 @@ min 9,756 $ — max 10,034 $
 | 2026-07-18T18:41 | open | BTC | achat | 600 $ | 1 | executed | — | BTC is the best available long-only starter, but only at small size: the state f |
 | 2026-07-18T04:35 | close | ETH | achat | — | — | executed | — | ETH is the only live position, but it does not clear the book's strict multi-hor |
 | 2026-07-17T22:36 | open | ETH | achat | 400 $ | 1 | executed | — | ETH has the cleanest near-term setup in the watchlist: the state feed shows +4.2 |
-| 2026-07-17T04:50 | close | AMD | achat | — | — | executed | — | This long also fails the momentum screen because both 1W and 1M momentum are neg |
 
 ## Objectifs (en euros réels)
 
