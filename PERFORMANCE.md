@@ -3,23 +3,23 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **194.41 €** (-2.79 %) — _book 9,721 $_
-- **Drawdown max** : 3.12 %
-- **Jours écoulés** : 20.8
-- **Dernier point** : 2026-07-23T13:16:56+00:00
+- **Valeur actuelle** : **194.35 €** (-2.82 %) — _book 9,718 $_
+- **Drawdown max** : 3.15 %
+- **Jours écoulés** : 21.0
+- **Dernier point** : 2026-07-23T15:48:02+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▇▇▇█▇▇▇▇▇▇▆▆▆▆▆▇▇▇▅▅▅▄▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇▇▇▇█▇▇▇▇▇▇▆▆▆▅▆▇▇▇▅▅▅▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁
 ```
-min 9,721 $ — max 10,034 $
+min 9,718 $ — max 10,034 $
 
 ## Métriques
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 43 |
+| Trades (open + close, exécutés ou dry-run) | 44 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,7 @@ min 9,721 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-23T15:48 | close | ETH | achat | — | — | executed | — | Close this ETH starter. The state feed still shows positive 1W (+4.83%) and 1M ( |
 | 2026-07-22T01:14 | open | ETH | achat | 850 $ | 1 | executed | — | ETH is the best long-only tactical starter today: the state feed shows 1W moment |
 | 2026-07-21T15:30 | close | BTC | achat | — | — | executed | — | Close the BTC starter and move to cash. The state feed still shows positive 1W ( |
 | 2026-07-21T11:40 | open | BTC | achat | 700 $ | 1 | executed | — | BTC is the only asset that clearly passes my short-term momentum screen: 1W is + |
@@ -41,7 +42,6 @@ min 9,721 $ — max 10,034 $
 | 2026-07-19T22:37 | open | ETH | achat | 1500 $ | 1 | executed | — | Open a small ETH starter, not a full-sized swing. In the state feed, ETH has the |
 | 2026-07-18T22:35 | close | BTC | achat | — | — | executed | — | Flatten the residual BTC starter. The state feed still shows positive 1W/1M mome |
 | 2026-07-18T20:35 | close | BTC | vente | — | — | rejected | — | BTC's 1W/1M momentum is positive, but its 3M momentum is still deeply negative ( |
-| 2026-07-18T18:41 | open | BTC | achat | 600 $ | 1 | executed | — | BTC is the best available long-only starter, but only at small size: the state f |
 
 ## Objectifs (en euros réels)
 
