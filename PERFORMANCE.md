@@ -3,35 +3,36 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **194.35 €** (-2.82 %) — _book 9,718 $_
-- **Drawdown max** : 3.15 %
+- **Valeur actuelle** : **194.19 €** (-2.91 %) — _book 9,709 $_
+- **Drawdown max** : 3.24 %
 - **Jours écoulés** : 21.0
-- **Dernier point** : 2026-07-23T15:48:02+00:00
+- **Dernier point** : 2026-07-23T17:08:07+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▇▇▇█▇▇▇▇▇▇▆▆▆▅▆▇▇▇▅▅▅▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇▇▇▇█▇▇▇▇▇▇▆▆▆▅▇▇▇▅▅▅▃▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁
 ```
-min 9,718 $ — max 10,034 $
+min 9,709 $ — max 10,034 $
 
 ## Métriques
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 44 |
+| Trades (open + close, exécutés ou dry-run) | 45 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 19.85 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 20.45 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-23T17:08 | open | AMD | achat | 600 $ | 1 | executed | — | Small starter long only. AMD clears the multi-horizon momentum screen better tha |
 | 2026-07-23T15:48 | close | ETH | achat | — | — | executed | — | Close this ETH starter. The state feed still shows positive 1W (+4.83%) and 1M ( |
 | 2026-07-22T01:14 | open | ETH | achat | 850 $ | 1 | executed | — | ETH is the best long-only tactical starter today: the state feed shows 1W moment |
 | 2026-07-21T15:30 | close | BTC | achat | — | — | executed | — | Close the BTC starter and move to cash. The state feed still shows positive 1W ( |
@@ -41,7 +42,6 @@ min 9,718 $ — max 10,034 $
 | 2026-07-20T01:18 | close | ETH | achat | — | — | executed | — | Close ETH. The state feed still shows weak multi-horizon alignment for a long-on |
 | 2026-07-19T22:37 | open | ETH | achat | 1500 $ | 1 | executed | — | Open a small ETH starter, not a full-sized swing. In the state feed, ETH has the |
 | 2026-07-18T22:35 | close | BTC | achat | — | — | executed | — | Flatten the residual BTC starter. The state feed still shows positive 1W/1M mome |
-| 2026-07-18T20:35 | close | BTC | vente | — | — | rejected | — | BTC's 1W/1M momentum is positive, but its 3M momentum is still deeply negative ( |
 
 ## Objectifs (en euros réels)
 
