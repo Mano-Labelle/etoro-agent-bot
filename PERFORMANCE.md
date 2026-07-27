@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **193.81 €** (-3.10 %) — _book 9,690 $_
+- **Valeur actuelle** : **193.96 €** (-3.02 %) — _book 9,698 $_
 - **Drawdown max** : 3.46 %
-- **Jours écoulés** : 24.2
-- **Dernier point** : 2026-07-26T22:45:55+00:00
+- **Jours écoulés** : 24.4
+- **Dernier point** : 2026-07-27T01:25:42+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▆█▇▇▇▇▇▇▆▆▆▇▇▅▅▅▄▃▃▃▃▃▃▂▂▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇▆█▇▇▇▇▇▆▆▆▆▇▇▅▅▅▄▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁
 ```
 min 9,686 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,686 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 49 |
+| Trades (open + close, exécutés ou dry-run) | 50 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 21.45 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 22.65 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-27T01:25 | open | NVDA | achat | 1200 $ | 1 | executed | — | NVDA is the only candidate that cleanly clears my multi-horizon long-only trend  |
 | 2026-07-26T08:01 | close | AMD | achat | — | — | executed | — | AMD still clears the state-feed trend screen with 1W +5.28%, 1M +0.43%, and 3M + |
 | 2026-07-26T05:17 | close | AMD | achat | — | — | executed | — | AMD still clears the long-only momentum screen in the state feed (1W +5.28%, 1M  |
 | 2026-07-24T17:19 | open | NVDA | achat | 1000 $ | 1 | executed | — | NVDA is the only fresh long that clears the mandate cleanly: the state feed show |
@@ -41,7 +42,6 @@ min 9,686 $ — max 10,034 $
 | 2026-07-22T01:14 | open | ETH | achat | 850 $ | 1 | executed | — | ETH is the best long-only tactical starter today: the state feed shows 1W moment |
 | 2026-07-21T15:30 | close | BTC | achat | — | — | executed | — | Close the BTC starter and move to cash. The state feed still shows positive 1W ( |
 | 2026-07-21T11:40 | open | BTC | achat | 700 $ | 1 | executed | — | BTC is the only asset that clearly passes my short-term momentum screen: 1W is + |
-| 2026-07-21T08:02 | close | BTC | achat | — | — | executed | — | Close BTC and move to cash. The state feed still shows a mixed tape: 1W is +1.21 |
 
 ## Objectifs (en euros réels)
 
