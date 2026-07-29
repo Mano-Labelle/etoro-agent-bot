@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **194.01 €** (-3.00 %) — _book 9,700 $_
 - **Drawdown max** : 3.46 %
-- **Jours écoulés** : 26.5
-- **Dernier point** : 2026-07-29T04:55:08+00:00
+- **Jours écoulés** : 26.6
+- **Dernier point** : 2026-07-29T08:13:24+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇▇█████▆▆▆▇▇▇▅▅▄▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇▇█████▆▆▆▇▇▇▅▅▄▃▃▃▃▃▃▃▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁
 ```
 min 9,686 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,686 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 51 |
+| Trades (open + close, exécutés ou dry-run) | 52 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 22.65 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 23.00 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-29T08:13 | open | ETH | achat | 350 $ | 1 | executed | — | ETH is the only watchlist name with positive 1W (+1.67%) and 1M (+7.91%) momentu |
 | 2026-07-27T05:34 | close | AMD | achat | — | — | executed | — | Close AMD and move to cash. The state feed still shows strong multi-horizon mome |
 | 2026-07-27T01:25 | open | NVDA | achat | 1200 $ | 1 | executed | — | NVDA is the only candidate that cleanly clears my multi-horizon long-only trend  |
 | 2026-07-26T08:01 | close | AMD | achat | — | — | executed | — | AMD still clears the state-feed trend screen with 1W +5.28%, 1M +0.43%, and 3M + |
@@ -41,7 +42,6 @@ min 9,686 $ — max 10,034 $
 | 2026-07-23T17:08 | open | AMD | achat | 600 $ | 1 | executed | — | Small starter long only. AMD clears the multi-horizon momentum screen better tha |
 | 2026-07-23T15:48 | close | ETH | achat | — | — | executed | — | Close this ETH starter. The state feed still shows positive 1W (+4.83%) and 1M ( |
 | 2026-07-22T01:14 | open | ETH | achat | 850 $ | 1 | executed | — | ETH is the best long-only tactical starter today: the state feed shows 1W moment |
-| 2026-07-21T15:30 | close | BTC | achat | — | — | executed | — | Close the BTC starter and move to cash. The state feed still shows positive 1W ( |
 
 ## Objectifs (en euros réels)
 
