@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **193.81 €** (-3.10 %) — _book 9,690 $_
 - **Drawdown max** : 3.46 %
-- **Jours écoulés** : 28.0
-- **Dernier point** : 2026-07-30T17:12:23+00:00
+- **Jours écoulés** : 28.1
+- **Dernier point** : 2026-07-30T19:05:34+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇█▇▇▇▇▇▆▆▇▇▇▅▅▄▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▆█▇▇▇▇▇▆▆▇▇▅▅▅▄▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 ```
 min 9,686 $ — max 10,034 $
 
@@ -19,7 +19,7 @@ min 9,686 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 54 |
+| Trades (open + close, exécutés ou dry-run) | 55 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,7 @@ min 9,686 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-07-30T19:05 | close | ETH | achat | — | — | executed | — | Close the ETH starter and move to cash. ETH still has a positive 1W/1M tape in t |
 | 2026-07-29T15:47 | open | ETH | achat | 175 $ | 1 | executed | — | Open a small ETH starter only. ETH is the cleanest momentum name in the watchlis |
 | 2026-07-29T15:47 | close | AMD | achat | — | — | executed | — | Close the AMD swing and cut binary earnings risk. The state feed shows weak shor |
 | 2026-07-29T08:13 | open | ETH | achat | 350 $ | 1 | executed | — | ETH is the only watchlist name with positive 1W (+1.67%) and 1M (+7.91%) momentu |
@@ -41,7 +42,6 @@ min 9,686 $ — max 10,034 $
 | 2026-07-26T05:17 | close | AMD | achat | — | — | executed | — | AMD still clears the long-only momentum screen in the state feed (1W +5.28%, 1M  |
 | 2026-07-24T17:19 | open | NVDA | achat | 1000 $ | 1 | executed | — | NVDA is the only fresh long that clears the mandate cleanly: the state feed show |
 | 2026-07-24T15:19 | close | AMD | achat | — | — | executed | — | AMD still has the cleanest momentum in the book (+7.74% 1W, +3.82% 1M, +77.85% 3 |
-| 2026-07-23T17:08 | open | AMD | achat | 600 $ | 1 | executed | — | Small starter long only. AMD clears the multi-horizon momentum screen better tha |
 
 ## Objectifs (en euros réels)
 
