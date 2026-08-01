@@ -6,12 +6,12 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **Valeur actuelle** : **193.66 €** (-3.17 %) — _book 9,683 $_
 - **Drawdown max** : 3.50 %
 - **Jours écoulés** : 29.8
-- **Dernier point** : 2026-08-01T11:08:30+00:00
+- **Dernier point** : 2026-08-01T12:46:31+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇▇█████▆▆▇▇▅▆▄▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+▇▇▇▇▇▇█████▆▆▇▇▅▅▄▃▃▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 ```
 min 9,683 $ — max 10,034 $
 
