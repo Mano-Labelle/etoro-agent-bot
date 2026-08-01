@@ -3,23 +3,23 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **193.77 €** (-3.12 %) — _book 9,688 $_
-- **Drawdown max** : 3.46 %
-- **Jours écoulés** : 29.2
-- **Dernier point** : 2026-07-31T22:46:55+00:00
+- **Valeur actuelle** : **193.71 €** (-3.15 %) — _book 9,685 $_
+- **Drawdown max** : 3.48 %
+- **Jours écoulés** : 29.3
+- **Dernier point** : 2026-08-01T01:22:48+00:00
 
 ## Courbe d'équité
 
 ```
 ▇▇▇▇▇▇█▇▇▇▇▆▆▆▇▇▅▅▄▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 ```
-min 9,686 $ — max 10,034 $
+min 9,685 $ — max 10,034 $
 
 ## Métriques
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 56 |
+| Trades (open + close, exécutés ou dry-run) | 57 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,7 @@ min 9,686 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-08-01T01:22 | close | ETH | achat | — | — | executed | — | Closing the ETH starter and moving to cash. The state feed shows weak multi-hori |
 | 2026-07-31T22:46 | open | ETH | achat | 300 $ | 1 | executed | — | ETH is the cleanest starter in the watchlist: 1W and 1M momentum are positive, a |
 | 2026-07-30T19:05 | close | ETH | achat | — | — | executed | — | Close the ETH starter and move to cash. ETH still has a positive 1W/1M tape in t |
 | 2026-07-29T15:47 | open | ETH | achat | 175 $ | 1 | executed | — | Open a small ETH starter only. ETH is the cleanest momentum name in the watchlis |
@@ -41,7 +42,6 @@ min 9,686 $ — max 10,034 $
 | 2026-07-27T01:25 | open | NVDA | achat | 1200 $ | 1 | executed | — | NVDA is the only candidate that cleanly clears my multi-horizon long-only trend  |
 | 2026-07-26T08:01 | close | AMD | achat | — | — | executed | — | AMD still clears the state-feed trend screen with 1W +5.28%, 1M +0.43%, and 3M + |
 | 2026-07-26T05:17 | close | AMD | achat | — | — | executed | — | AMD still clears the long-only momentum screen in the state feed (1W +5.28%, 1M  |
-| 2026-07-24T17:19 | open | NVDA | achat | 1000 $ | 1 | executed | — | NVDA is the only fresh long that clears the mandate cleanly: the state feed show |
 
 ## Objectifs (en euros réels)
 
