@@ -1,6 +1,6 @@
-- À APPLIQUER — Long only sur momentum aligné multi-horizon. Si 1W ou 1M est négatif, rester en cash ou n’utiliser qu’un starter très prudent. Si 3M est négatif, exiger une qualité de signal nettement supérieure avant toute entrée.
-- À APPLIQUER — Les catalyseurs datés ne se jouent que s’ils renforcent une tendance déjà saine ; si le moteur catalytique est déjà joué ou si l’échéance d’earnings approche, alléger/fermer avant le gap.
-- À APPLIQUER — Limiter le churn : éviter de rouvrir un même symbole tant que le signal n’a pas changé clairement ; après un close, attendre au moins une séance complète si le setup n’est pas objectivement meilleur.
-- À SURVEILLER — Les semis leaders (NVDA/AMD) restent les meilleurs candidats quand le momentum est propre ; traiter les earnings proches comme un filtre de fraîcheur sévère.
-- À SURVEILLER — BTC/ETH ne sont acceptables qu’en starter tactique quand 1W/1M sont positifs ; sans 3M réparé, ce n’est pas encore un lane de base.
-- À APPLIQUER — Ne pas forcer un trade “par défaut” ; cash = position quand aucun setup ne coche clairement tendance + catalyseur + régime favorable.
+- À APPLIQUER — Long only sur momentum multi-horizon aligné. Si 1W ou 1M est négatif, rester cash ou starter très prudent; si 3M est négatif, n’entrer que sur signal exceptionnel et très propre.
+- À APPLIQUER — Les catalyseurs datés ne comptent que s’ils renforcent une tendance saine; à l’approche d’un earnings/gap, alléger ou fermer avant l’événement.
+- À APPLIQUER — Cash = position par défaut. Ne pas forcer un trade si tendance + catalyseur + régime ne sont pas tous présents.
+- À SURVEILLER — Limiter le churn: éviter de rouvrir le même symbole sans amélioration objective du signal; après un close, attendre au moins une séance si rien n’a changé clairement.
+- À SURVEILLER — Les semis leaders (NVDA/AMD) restent les meilleurs candidats quand le momentum est propre, mais les earnings proches doivent durcir le filtre.
+- À SURVEILLER — BTC/ETH seulement en starter tactique quand 1W/1M sont positifs; tant que 3M n’est pas réparé, ce n’est pas une lane de base.
