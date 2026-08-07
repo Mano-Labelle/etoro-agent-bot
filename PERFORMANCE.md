@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **195.38 €** (-2.31 %) — _book 9,769 $_
+- **Valeur actuelle** : **195.31 €** (-2.34 %) — _book 9,766 $_
 - **Drawdown max** : 3.50 %
 - **Jours écoulés** : 35.7
-- **Dernier point** : 2026-08-07T08:43:37+00:00
+- **Dernier point** : 2026-08-07T10:40:07+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇▇████▆▆▇▇▅▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▃▂
+▇▇▇▇▇████▆▆▇▇▆▄▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂
 ```
 min 9,683 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,683 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 61 |
+| Trades (open + close, exécutés ou dry-run) | 62 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 26.38 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 26.82 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-08-07T10:40 | open | ETH | achat | 450 $ | 1 | executed | — | Open a small ETH starter. ETH is the cleanest crypto momentum name in the state  |
 | 2026-08-05T20:53 | open | PLTR | achat | 600 $ | 1 | executed | — | PLTR is the cleanest long in the watchlist: 1W +31.68%, 1M +22.73%, 3M +11.39%,  |
 | 2026-08-05T20:52 | close | AMD | achat | — | — | executed | — | AMD no longer clears the long-only momentum screen: 1M momentum is -6.06% even t |
 | 2026-08-05T04:51 | open | PLTR | achat | 800 $ | 1 | executed | — | Open a small starter in PLTR. The state feed shows the strongest clean momentum  |
@@ -41,7 +42,6 @@ min 9,683 $ — max 10,034 $
 | 2026-07-30T19:05 | close | ETH | achat | — | — | executed | — | Close the ETH starter and move to cash. ETH still has a positive 1W/1M tape in t |
 | 2026-07-29T15:47 | open | ETH | achat | 175 $ | 1 | executed | — | Open a small ETH starter only. ETH is the cleanest momentum name in the watchlis |
 | 2026-07-29T15:47 | close | AMD | achat | — | — | executed | — | Close the AMD swing and cut binary earnings risk. The state feed shows weak shor |
-| 2026-07-29T08:13 | open | ETH | achat | 350 $ | 1 | executed | — | ETH is the only watchlist name with positive 1W (+1.67%) and 1M (+7.91%) momentu |
 
 ## Objectifs (en euros réels)
 
