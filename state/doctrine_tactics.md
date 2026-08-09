@@ -1,6 +1,6 @@
-- À APPLIQUER — Long only sur momentum multi-horizon aligné. Si 1W ou 1M est négatif, rester cash ou starter très prudent; si 3M est négatif, n’entrer que sur signal exceptionnel et très propre.
-- À APPLIQUER — Les catalyseurs datés ne comptent que s’ils renforcent une tendance saine; à l’approche d’un earnings/gap, alléger ou fermer avant l’événement.
-- À APPLIQUER — Cash = position par défaut. Ne pas forcer un trade si tendance + catalyseur + régime ne sont pas tous présents.
-- À SURVEILLER — Limiter le churn: éviter de rouvrir le même symbole sans amélioration objective du signal; après un close, attendre au moins une séance si rien n’a changé clairement.
-- À SURVEILLER — Les semis leaders (NVDA/AMD) restent les meilleurs candidats quand le momentum est propre, mais les earnings proches doivent durcir le filtre.
-- À SURVEILLER — BTC/ETH seulement en starter tactique quand 1W/1M sont positifs; tant que 3M n’est pas réparé, ce n’est pas une lane de base.
+- À APPLIQUER — Long only sur momentum multi-horizon aligné. 1W et 1M positifs requis; si 3M est négatif, rester cash sauf signal exceptionnel, très propre et catalysé.
+- À APPLIQUER — Cash = position par défaut. Ne pas forcer d’entrée si tendance + régime + qualité du setup ne sont pas tous présents.
+- À SURVEILLER — Les catalyseurs datés n’ont de valeur que s’ils confirment une tendance déjà saine; à l’approche d’un earnings/gap, devenir plus sélectif et éviter l’entrée tardive.
+- À SURVEILLER — Limiter le churn: éviter de rouvrir le même symbole sans amélioration objective du signal; après un close, attendre au moins une séance si rien n’a changé nettement.
+- À SURVEILLER — Les semis leaders (NVDA/AMD) restent de bons candidats seulement si la force relative reste propre; un 1M faible ou une dégradation du tape = pas d’entrée.
+- À SURVEILLER — BTC/ETH seulement en starter tactique si 1W/1M sont positifs; ce n’est pas une lane de base et on ne force pas un add si le book est déjà plein.
