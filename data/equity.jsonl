@@ -335,3 +335,4 @@
 {"ts": "2026-08-10T03:41:24+00:00", "equity": 9856.63, "cash": 7113.77, "used_margin": null, "pnl_unrealized": null, "n_positions": 3, "halted": false, "breaker_active": false, "dry_run": false}
 {"ts": "2026-08-10T05:13:45+00:00", "equity": 9859.69, "cash": 7113.77, "used_margin": null, "pnl_unrealized": null, "n_positions": 3, "halted": false, "breaker_active": false, "dry_run": false}
 {"ts": "2026-08-10T07:01:53+00:00", "equity": 9858.95, "cash": 7113.77, "used_margin": null, "pnl_unrealized": null, "n_positions": 3, "halted": false, "breaker_active": false, "dry_run": false}
+{"ts": "2026-08-10T09:04:07+00:00", "equity": 9850.71, "cash": 7113.77, "used_margin": null, "pnl_unrealized": null, "n_positions": 3, "halted": false, "breaker_active": false, "dry_run": false}
