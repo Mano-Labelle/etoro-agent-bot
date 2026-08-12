@@ -5,13 +5,13 @@ _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas édite
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
 - **Valeur actuelle** : **195.89 €** (-2.05 %) — _book 9,795 $_
 - **Drawdown max** : 3.50 %
-- **Jours écoulés** : 40.6
-- **Dernier point** : 2026-08-12T07:02:04+00:00
+- **Jours écoulés** : 40.7
+- **Dernier point** : 2026-08-12T08:57:37+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇█▇▇▇▆▇▇▅▄▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▄▄▄▄▄▃▃
+▇▇▇▇█▇▇▇▆▇▇▅▄▃▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▄▄▄▄▃▃▃
 ```
 min 9,683 $ — max 10,034 $
 
