@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **195.94 €** (-2.03 %) — _book 9,797 $_
+- **Valeur actuelle** : **195.93 €** (-2.04 %) — _book 9,796 $_
 - **Drawdown max** : 3.50 %
-- **Jours écoulés** : 40.3
-- **Dernier point** : 2026-08-12T00:47:26+00:00
+- **Jours écoulés** : 40.5
+- **Dernier point** : 2026-08-12T03:53:09+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇█▇▇▇▆▇▇▅▄▃▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▃▄▄▄▄▃▃
+▇▇▇▇█▇▇▇▆▇▇▅▄▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▃▄▄▄▄▃▃
 ```
 min 9,683 $ — max 10,034 $
 
@@ -19,7 +19,7 @@ min 9,683 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 63 |
+| Trades (open + close, exécutés ou dry-run) | 64 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
@@ -32,6 +32,7 @@ min 9,683 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-08-12T03:53 | close | NVDA | achat | — | — | executed | — | Close the NVDA swing and bank the gain. The user data still shows decent near-te |
 | 2026-08-11T00:41 | close | ETH | achat | — | — | executed | — | Close. ETH no longer meets the long-only momentum screen: 1W -1.83% and 1M -1.68 |
 | 2026-08-08T03:15 | open | ETH | achat | — | — | rejected | — | ETH is the cleanest crypto add: market_data shows aligned positive momentum acro |
 | 2026-08-07T10:40 | open | ETH | achat | 450 $ | 1 | executed | — | Open a small ETH starter. ETH is the cleanest crypto momentum name in the state  |
@@ -41,7 +42,6 @@ min 9,683 $ — max 10,034 $
 | 2026-08-04T01:12 | open | NVDA | achat | 1500 $ | 1 | executed | — | NVDA is the only clean long-only momentum setup in the book: 1W +5.15%, 1M +6.06 |
 | 2026-08-01T01:22 | close | ETH | achat | — | — | executed | — | Closing the ETH starter and moving to cash. The state feed shows weak multi-hori |
 | 2026-07-31T22:46 | open | ETH | achat | 300 $ | 1 | executed | — | ETH is the cleanest starter in the watchlist: 1W and 1M momentum are positive, a |
-| 2026-07-30T19:05 | close | ETH | achat | — | — | executed | — | Close the ETH starter and move to cash. ETH still has a positive 1W/1M tape in t |
 
 ## Objectifs (en euros réels)
 
