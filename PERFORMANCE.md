@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **195.70 €** (-2.15 %) — _book 9,785 $_
+- **Valeur actuelle** : **195.69 €** (-2.15 %) — _book 9,785 $_
 - **Drawdown max** : 3.50 %
 - **Jours écoulés** : 41.5
-- **Dernier point** : 2026-08-13T03:57:06+00:00
+- **Dernier point** : 2026-08-13T05:27:04+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▇█▇▇▆▆▇▅▅▄▃▃▃▃▂▂▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▄▄▄▄▄▃▃▃
+▇▇▇▇███▆▆▇▅▅▃▃▃▃▃▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▄▄▄▄▃▃▃▂
 ```
 min 9,683 $ — max 10,034 $
 
@@ -19,19 +19,20 @@ min 9,683 $ — max 10,034 $
 
 | Métrique | Valeur |
 |---|---|
-| Trades (open + close, exécutés ou dry-run) | 65 |
+| Trades (open + close, exécutés ou dry-run) | 66 |
 | Fermetures avec PnL connu | 0 |
 | Taux de réussite | — |
 | Gain moyen | — |
 | Perte moyenne | — |
 | Ratio gain/perte | — |
 | Espérance par trade | — |
-| Coûts bruts estimés (proxy spread 0,1 %) | 27.12 $ |
+| Coûts bruts estimés (proxy spread 0,1 %) | 27.43 $ |
 
 ## 10 derniers trades
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-08-13T05:27 | open | PLTR | achat | 300 $ | 1 | executed | — | PLTR is the cleanest long-only setup in the watchlist: the state feed shows 1W + |
 | 2026-08-12T18:43 | open | PLTR | achat | 300 $ | 1 | executed | — | PLTR is the cleanest long-only candidate in the watchlist: its state-feed moment |
 | 2026-08-12T03:53 | close | NVDA | achat | — | — | executed | — | Close the NVDA swing and bank the gain. The user data still shows decent near-te |
 | 2026-08-11T00:41 | close | ETH | achat | — | — | executed | — | Close. ETH no longer meets the long-only momentum screen: 1W -1.83% and 1M -1.68 |
@@ -41,7 +42,6 @@ min 9,683 $ — max 10,034 $
 | 2026-08-05T20:52 | close | AMD | achat | — | — | executed | — | AMD no longer clears the long-only momentum screen: 1M momentum is -6.06% even t |
 | 2026-08-05T04:51 | open | PLTR | achat | 800 $ | 1 | executed | — | Open a small starter in PLTR. The state feed shows the strongest clean momentum  |
 | 2026-08-04T01:12 | open | NVDA | achat | 1500 $ | 1 | executed | — | NVDA is the only clean long-only momentum setup in the book: 1W +5.15%, 1M +6.06 |
-| 2026-08-01T01:22 | close | ETH | achat | — | — | executed | — | Closing the ETH starter and moving to cash. The state feed shows weak multi-hori |
 
 ## Objectifs (en euros réels)
 
