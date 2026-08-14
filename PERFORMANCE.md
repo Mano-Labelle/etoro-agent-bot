@@ -3,15 +3,15 @@
 _Régénéré automatiquement à chaque cycle par `tracker.py` — ne pas éditer à la main._
 
 - **T0** : 2026-07-02T16:59Z — mise réelle **200 €** (book virtuel de 10,000 $ répliqué à ~2 %)
-- **Valeur actuelle** : **196.85 €** (-1.58 %) — _book 9,842 $_
+- **Valeur actuelle** : **196.81 €** (-1.60 %) — _book 9,840 $_
 - **Drawdown max** : 3.50 %
-- **Jours écoulés** : 42.7
-- **Dernier point** : 2026-08-14T10:45:25+00:00
+- **Jours écoulés** : 42.8
+- **Dernier point** : 2026-08-14T12:33:58+00:00
 
 ## Courbe d'équité
 
 ```
-▇▇▇▆███▆▆▇▆▄▃▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▃▄▄▄▄▃▃▃▃▄
+▇▇▇▆███▆▆▇▆▄▃▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▄▄▄▄▃▃▃▃▃▄
 ```
 min 9,683 $ — max 10,034 $
 
@@ -32,6 +32,7 @@ min 9,683 $ — max 10,034 $
 
 | Date (UTC) | Type | Symbole | Sens | Montant | Levier | Statut | PnL | Rationale |
 |---|---|---|---|---|---|---|---|---|
+| 2026-08-14T12:33 | open | PLTR | achat | — | — | rejected | — | PLTR is the cleanest long-only momentum name in the state feed: 1W +14.81%, 1M + |
 | 2026-08-13T22:28 | open | PLTR | achat | — | — | rejected | — | PLTR has the cleanest tape in the watchlist: 1W +7.96%, 1M +27.91%, 3M +25.76%,  |
 | 2026-08-13T05:27 | open | PLTR | achat | 300 $ | 1 | executed | — | PLTR is the cleanest long-only setup in the watchlist: the state feed shows 1W + |
 | 2026-08-12T18:43 | open | PLTR | achat | 300 $ | 1 | executed | — | PLTR is the cleanest long-only candidate in the watchlist: its state-feed moment |
@@ -41,7 +42,6 @@ min 9,683 $ — max 10,034 $
 | 2026-08-07T10:40 | open | ETH | achat | 450 $ | 1 | executed | — | Open a small ETH starter. ETH is the cleanest crypto momentum name in the state  |
 | 2026-08-05T20:53 | open | PLTR | achat | 600 $ | 1 | executed | — | PLTR is the cleanest long in the watchlist: 1W +31.68%, 1M +22.73%, 3M +11.39%,  |
 | 2026-08-05T20:52 | close | AMD | achat | — | — | executed | — | AMD no longer clears the long-only momentum screen: 1M momentum is -6.06% even t |
-| 2026-08-05T04:51 | open | PLTR | achat | 800 $ | 1 | executed | — | Open a small starter in PLTR. The state feed shows the strongest clean momentum  |
 
 ## Objectifs (en euros réels)
 
