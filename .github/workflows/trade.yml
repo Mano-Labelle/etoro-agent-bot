@@ -1,10 +1,15 @@
 name: trade
 
+# ARRÊTÉ 2026-08-14 — l'expérience est terminée (décision Mano).
+# Le cron est désactivé: plus aucun cycle automatique, plus aucun ordre passé.
+# Les positions ouvertes chez eToro NE SONT PAS fermées par ce changement:
+# elles restent avec leurs stop-loss côté eToro, à clôturer manuellement dans l'app.
+# Pour relancer un jour: décommenter le bloc `schedule` ci-dessous.
 on:
-  schedule:
-    - cron: "0 */2 * * *"    # toutes les 2 heures (horizon momentum = heures→semaines;
-                             # cadence économe: ~1 080 recherches web/mois ≈ 11 $)
-  workflow_dispatch: {}       # lancement manuel possible
+  # schedule:
+  #   - cron: "0 */2 * * *"    # toutes les 2 heures (horizon momentum = heures→semaines;
+  #                            # cadence économe: ~1 080 recherches web/mois ≈ 11 $)
+  workflow_dispatch: {}       # lancement manuel uniquement
 
 permissions:
   contents: write             # le workflow committe data/ + state/ + PERFORMANCE.md

@@ -2,9 +2,10 @@ name: retro
 
 # Rétrospective hebdomadaire (self-learning étage 2) — dimanche 20:00 UTC,
 # marchés fermés. Le bot analyse sa semaine et amende state/doctrine_tactics.md.
+# ARRÊTÉ 2026-08-14 — expérience terminée, plus rien à rétrospecter en continu.
 on:
-  schedule:
-    - cron: "0 20 * * 0"    # dimanche 20:00 UTC
+  # schedule:
+  #   - cron: "0 20 * * 0"    # dimanche 20:00 UTC
   workflow_dispatch: {}
 
 permissions:
