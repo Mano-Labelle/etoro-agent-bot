@@ -1,0 +1,44 @@
+# Configuration du bot — tous les garde-fous déterministes vivent ici.
+# Le cerveau (LLM) propose, risk_gate.py dispose.
+
+model: "gpt-5.4-mini"             # modèle OpenAI pour le cerveau (Responses API)
+                                  # ultra économe: "gpt-5.4-nano"; plus fort: "gpt-5.4"
+web_search_enabled: true          # recherche web native via l'outil hébergé web_search
+reasoning_effort: "medium"        # low|medium|high — medium = analyse vraiment réfléchie
+                                  # (thèse haussière + risque baissier). ~+3-5 €/mois vs low.
+max_output_tokens: 8000           # plafond de sortie par appel
+max_web_searches: 4               # recherches web ciblées par cycle (indice de coût)
+
+risk:
+  # MODE ACTIFS RÉELS SANS CFD — le backtest a prouvé que le CFD à levier est un piège
+  # à frais (spread + financement overnight ~10%/an). On passe en actifs POSSÉDÉS,
+  # non-leviérés, long-only : perte bornée à la mise, seul coût = spread.
+  force_unleveraged: true                # FORCE le levier à 1 sur toute ouverture (écrase la valeur)
+  long_only: true                        # INTERDIT les shorts (nécessiteraient un CFD) — close toujours permis
+  max_open_positions: 3                  # positions ouvertes simultanées max
+  max_amount_pct_of_book_per_trade: 30   # % de accountTotalValue max par trade
+  min_cash_reserve_pct: 10               # le cash ne descend jamais sous 10% du book
+  global_max_leverage: 20                # plafond global (SANS EFFET si force_unleveraged: true)
+  leverage_caps:                         # caps ESMA par classe — GARDÉS POUR MÉMOIRE mais
+    fx_major: 30                         # SANS EFFET tant que force_unleveraged: true (levier=1 forcé)
+    index_major: 20
+    gold: 20
+    commodity: 10
+    stock: 5
+    crypto: 2
+  default_stop_loss_pct_position: 40     # SL injecté si le cerveau l'omet (% de la position)
+  max_stop_loss_pct_position: 50         # SL jamais au-delà de 50% de la position
+  daily_max_drawdown_pct: 25             # -25% depuis 00:00 UTC → plus d'ouvertures ce jour
+  hard_floor_usd: 3500                   # book < 3500 $ (confirmé 2 cycles) → tout fermer + halte
+  lock_max_age_min: 20                   # verrou anti-chevauchement de cycles (runs locaux)
+  max_opens_per_day: 6                   # anti-churn: budget d'ouvertures par jour UTC
+  min_hold_minutes: 120                  # anti-churn: détention min avant close/réouverture
+
+# Notes de cycle:
+# - GitHub Actions lance main.py toutes les 30 minutes (cron).
+# - Un cycle = lecture portefeuille → plancher/disjoncteur → cerveau (recherche
+#   web) → gate déterministe → exécution → logs/trades.jsonl.
+# - DRY_RUN=true (défaut): rien n'est exécuté, tout est loggé.
+# - Reprendre après halte: supprimer state/halt.json (décision manuelle).
+# - state/ et data/ sont COMMITTÉS par le workflow à chaque cycle (persistance
+#   fiable, remplace actions/cache); logs/ reste local/artefact.

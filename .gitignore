@@ -1,0 +1,14 @@
+# Secrets — jamais commités
+.env
+
+# Données locales, jamais dans le dépôt
+logs/
+data/
+state/
+PERFORMANCE.md
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
